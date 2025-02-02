@@ -37,6 +37,7 @@ require("plugins.tools.eyeliner")
 require("plugins.tools.gitgraph")
 require("plugins.tools.ddifview")
 require("plugins.tools.posssession")
+require("plugins.tools.move")
 
 -- ui
 require("plugins.ui.cinnamon")

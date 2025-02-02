@@ -150,6 +150,6 @@ return {
 	{ "Eandrju/cellular-automaton.nvim" },
 	-- sessions nvim
 	{ "jedrzejboczar/possession.nvim" },
-	-- speedtyper
-	{ "NStefan002/speedtyper.nvim" },
+	--  movengine
+	{ "booperlv/nvim-gomove" },
 }
