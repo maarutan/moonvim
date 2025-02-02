@@ -1,9 +1,9 @@
 ----------------------------------------------------------------
 --catppuccin
-require("core.lazyplug.colorscheme.catppuccin")
+-- require("core.lazyplug.colorscheme.catppuccin")
 --
 --gruvbox
--- require("core.lazyplug.colorscheme.gruvbox")
+require("core.lazyplug.colorscheme.gruvbox")
 --
 --tokyonight
 -- require("core.lazyplug.colorscheme.tokyonight")
@@ -22,4 +22,3 @@ require("core.lazyplug.colorscheme.catppuccin")
 --
 -- vim.o.background = "light"
 ----------------------------------------------------------------
--- visual multi settings theme corsor

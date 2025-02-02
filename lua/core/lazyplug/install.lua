@@ -111,16 +111,12 @@ return {
 	{ "echasnovski/mini.icons", version = "*" },
 	--whichkey
 	{ "folke/which-key.nvim", event = "VeryLazy" },
-	--better esc
-	{ "max397574/better-escape.nvim" },
 	--autopairs
 	{ "windwp/nvim-autopairs" },
 	--nvim-surround
 	{ "kylechui/nvim-surround", version = "*", event = "VeryLazy" },
 	--lorem for nvim
 	{ "maarutan/lorem.nvim" },
-	--lifeshare
-	{ "azratul/live-share.nvim", dependencies = "jbyuki/instant.nvim" }, -- ignore
 	--smoothcursor
 	{ "sphamba/smear-cursor.nvim" },
 	--macro notify
@@ -154,4 +150,6 @@ return {
 	{ "Eandrju/cellular-automaton.nvim" },
 	-- sessions nvim
 	{ "jedrzejboczar/possession.nvim" },
+	-- speedtyper
+	{ "NStefan002/speedtyper.nvim" },
 }

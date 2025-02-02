@@ -44,6 +44,7 @@ vim.opt.termguicolors = true
 vim.opt.signcolumn = "yes"
 vim.opt.wrap = false
 vim.opt.foldenable = false
+vim.opt.textwidth = 80
 
 -- Windows and splits
 vim.opt.splitright = true
