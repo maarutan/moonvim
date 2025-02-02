@@ -83,6 +83,7 @@ require("plugins.extras.whoami")
 require("plugins.extras.showfile")
 require("plugins.extras.floutBuffer")
 require("plugins.extras.tabs")
+require("plugins.extras.kitty")
 
 -- dev
 require("plugins.dev.config")
