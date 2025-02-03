@@ -7,7 +7,7 @@ vim.g.mapleader = " "
 vim.keymap.set("n", "<leader>e", "<cmd>:Neotree toggle<CR>", opts)
 
 -- betteresc
-vim.keymap.set("i", "jk", "<Esc>l", { noremap = true, silent = true })
+vim.keymap.set("i", "jk", "<Esc>", { noremap = true, silent = true })
 
 -- Window navigation
 vim.api.nvim_set_keymap("n", "<C-h>", "<C-w>h", opts)

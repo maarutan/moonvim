@@ -148,8 +148,6 @@ return {
 	{ "sindrets/diffview.nvim" },
 	-- cellular automaton
 	{ "Eandrju/cellular-automaton.nvim" },
-	-- sessions nvim
-	{ "jedrzejboczar/possession.nvim" },
 	--  movengine
 	{ "booperlv/nvim-gomove" },
 }

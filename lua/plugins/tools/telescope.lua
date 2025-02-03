@@ -4,7 +4,6 @@ local builtin = require("telescope.builtin")
 telescope.load_extension("notify")
 telescope.load_extension("file_browser")
 telescope.load_extension("undo")
-telescope.load_extension("possession")
 local actions = require("telescope.actions")
 local action_state = require("telescope.actions.state")
 
@@ -58,8 +57,6 @@ vim.keymap.set("n", "<leader>cs", builtin.colorscheme, {
 })
 vim.keymap.set("n", "<leader>u", "<cmd>Telescope undo<CR>", { desc = "󰣜 Open undo tree" })
 vim.keymap.set("n", "<leader>fn", "<cmd>Telescope notify<CR>", { desc = "󰍡 Notification history" })
-vim.keymap.set("n", "<leader>fs", "<cmd>Telescope possession list<CR>", { desc = "possession" })
-vim.keymap.set("n", "<leader>fS", "<cmd>Telescope possession list only_cwd=true<CR>", { desc = "Load Extension Cwd" })
 
 local function open_file_browser()
 	telescope.extensions.file_browser.file_browser({

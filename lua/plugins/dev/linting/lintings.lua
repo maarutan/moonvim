@@ -17,7 +17,7 @@ lint.linters_by_ft = {
 }
 
 -- Automatically trigger linting on file read and write
-vim.api.nvim_create_autocmd({ "BufReadPost", "BufWritePost" }, {
+vim.api.nvim_create_autocmd({ "BufReadPost" }, {
 	callback = function()
 		require("lint").try_lint()
 	end,
