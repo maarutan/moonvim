@@ -134,8 +134,6 @@ return {
 	{ "windwp/nvim-ts-autotag" },
 	--cmp view lsp
 	{ "onsails/lspkind.nvim" },
-	--preview img
-	{ "3rd/image.nvim" },
 	--rainbow
 	{ "hiphish/rainbow-delimiters.nvim" },
 	-- buffResize
