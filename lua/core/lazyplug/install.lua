@@ -127,7 +127,6 @@ return {
 	{ "mfussenegger/nvim-lint" },
 	--quickfix ui for nvim
 	{ "kevinhwang91/nvim-bqf" },
-	-- { "folke/trouble.nvim" },
 	--lspsaga better ui for lsp
 	{ "nvimdev/lspsaga.nvim" },
 	--auto autotag

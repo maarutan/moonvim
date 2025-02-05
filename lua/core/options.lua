@@ -76,3 +76,5 @@ vim.opt.syntax = "off"
 
 -- Command abbreviations
 vim.cmd([[cabbrev Q q!]])
+vim.cmd([[cabbrev W w!]])
+vim.cmd([[cabbrev w w!]])

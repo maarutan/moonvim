@@ -6,6 +6,8 @@ local beautysh = require("plugins.dev.formatting.beautysh")
 local black = require("plugins.dev.formatting.black")
 local djlint = require("plugins.dev.formatting.djlint")
 local clang_format = require("plugins.dev.formatting.clang_format")
+local augroup = vim.api.nvim_create_augroup
+local autocmd = vim.api.nvim_create_autocmd
 
 require("formatter").setup({
 	filetype = {
@@ -71,13 +73,9 @@ require("formatter").setup({
 
 ----------------------------
 ------ format on save ------
-vim.api.nvim_exec(
-	[[
-augroup FormatAutogroup
-  autocmd!
-  autocmd BufWritePost * FormatWrite | w!
-augroup END
-]],
-	true
-)
+augroup("__formatter__", { clear = true })
+autocmd("BufWritePost", {
+	group = "__formatter__",
+	command = ":FormatWrite",
+})
 ----------------------------
