@@ -9,7 +9,7 @@ if is_kitty() then
 			-- set kitty
 			os.execute("kitty @ set-font-size 13.5")
 			os.execute("kitty @ set-spacing padding=0")
-			os.execute("kitty @ set-background-opacity 1")
+			-- os.execute("kitty @ set-background-opacity 1")
 		end,
 	})
 
@@ -18,6 +18,7 @@ if is_kitty() then
 			-- reset kitty
 			os.execute("kitty @ set-font-size 0")
 			os.execute("kitty @ set-spacing padding=default")
+			-- os.execute("kitty @ set-background-opacity 0.8")
 		end,
 	})
 

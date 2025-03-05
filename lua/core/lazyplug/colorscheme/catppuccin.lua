@@ -52,7 +52,7 @@ require("catppuccin").setup({
 vim.cmd.colorscheme("catppuccin")
 
 if vim.o.background == "light" then
-	vim.g.VM_theme = "catppuccin_latte"
-elseif vim.o.background == "dark" then
+	-- 	vim.g.VM_theme = "catppuccin_latte"
+	-- elseif vim.o.background == "dark" then
 	vim.g.VM_theme = "catppuccin_mocha"
 end
