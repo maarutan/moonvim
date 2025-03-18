@@ -22,6 +22,7 @@ require("nvim-treesitter.configs").setup({
 		"rust",
 		"go",
 		"todotxt",
+		"hyprlang",
 	},
 	build = ":TSUpdate",
 
@@ -31,10 +32,9 @@ require("nvim-treesitter.configs").setup({
 	},
 
 	sync_install = false,
-
 	auto_install = true,
 
-	ignore_install = { "javascript" },
+	-- ignore_install = { "javascript" },
 
 	highlight = {
 		enable = true,
@@ -64,4 +64,8 @@ require("nvim-treesitter.configs").setup({
 		extended_mode = true,
 		max_file_lines = 1000,
 	},
+})
+
+vim.filetype.add({
+	pattern = { [".*/hypr/.*%.conf"] = "hyprlang" },
 })

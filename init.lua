@@ -8,8 +8,8 @@ require("core.lazyplug.config")
 require("core.colorscheme")
 require("core.gui")
 -------------
--- PLUGINS --
--------------
+-- PLUGIN --
+---------k---
 --------------------------------
 -- tools
 require("plugins.tools.nocut")

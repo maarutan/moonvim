@@ -34,6 +34,7 @@ local servers = {
 	"taplo",
 	"yamlls",
 	"clangd",
+	"hyprls",
 }
 for _, server in ipairs(servers) do
 	lspconfig[server].setup({

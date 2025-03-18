@@ -36,6 +36,7 @@ require("mason-tool-installer").setup({
 		"typescript-language-server", -- TypeScript/JavaScript
 		"sqlls", -- SQL
 		"taplo", -- TOML
+		"hyprls", -- Hyprland
 
 		--- Linters ---
 		"beautysh", -- Shell scripts

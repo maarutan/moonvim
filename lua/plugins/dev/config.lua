@@ -11,6 +11,7 @@ require("plugins.dev.lsp.markdown") -- marksman
 require("plugins.dev.lsp.sql") -- sqls
 require("plugins.dev.lsp.toml") -- taplo
 require("plugins.dev.lsp.yaml") -- yaml-lsp
+require("plugins.dev.lsp.hyprls") -- hyprland-lsp
 
 -- formatting:
 require("plugins.dev.formatting.formatter")
