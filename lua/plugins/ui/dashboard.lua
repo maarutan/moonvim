@@ -176,8 +176,12 @@ require("dashboard").setup({
 									-- Принудительно открываем файл
 									vim.cmd("e! " .. filepath)
 								end
-								-- Используем команду Bdelete для закрытия буфера
-								vim.cmd("Bdelete " .. prompt_bufnr)
+
+								-- Проверяем, существует ли буфер перед его удалением
+								if vim.fn.bufexists(prompt_bufnr) == 1 then
+									-- Используем команду Bdelete для закрытия буфера
+									vim.cmd("Bdelete " .. prompt_bufnr)
+								end
 							end
 
 							-- Привязываем действие к Enter

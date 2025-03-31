@@ -131,8 +131,6 @@ return {
 	{ "nvimdev/lspsaga.nvim" },
 	--auto autotag
 	{ "windwp/nvim-ts-autotag" },
-	--cmp view lsp
-	{ "onsails/lspkind.nvim" },
 	--rainbow
 	{ "hiphish/rainbow-delimiters.nvim" },
 	-- buffResize
