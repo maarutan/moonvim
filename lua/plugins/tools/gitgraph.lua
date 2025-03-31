@@ -3,7 +3,7 @@ require("gitgraph").setup({
 	layout = "floating", -- Options: "floating", "vertical", "horizontal"
 	floating_width = 80, -- Width for floating window (percentage of the screen)
 	floating_height = 80, -- Height for floating window (percentage of the screen)
-	border = "double", -- Options: "single", "double", "rounded", "solid", "shadow"
+	border = "single", -- Options: "single", "double", "rounded", "solid", "shadow"
 	toggle_keymap = "<leader>gi", -- Default keymap for toggling GitGraph
 	key_close = "q", -- Keymap to close GitGraph buffer
 

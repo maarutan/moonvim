@@ -9,7 +9,7 @@ require("core.colorscheme")
 require("core.gui")
 -------------
 -- PLUGIN --
----------k---
+-------------
 --------------------------------
 -- tools
 require("plugins.tools.nocut")
