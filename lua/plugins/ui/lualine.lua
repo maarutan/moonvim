@@ -49,7 +49,7 @@ require("lualine").setup({
 		lualine_b = {
 			{ "branch", icon = "" },
 			{ "diff", icon = "" },
-			{ "diagnostics", icon = "" },
+			{ "diagnostics", icon = "󰅚 " },
 			{
 				function()
 					return vim.fn["db_ui#statusline"]({

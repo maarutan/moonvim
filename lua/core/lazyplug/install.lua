@@ -147,4 +147,6 @@ return {
 	{ "booperlv/nvim-gomove" },
 	-- nvim ufo
 	{ "kevinhwang91/nvim-ufo", dependencies = "kevinhwang91/promise-async" },
+	-- log highlighting
+	{ "fei6409/log-highlight.nvim" },
 }

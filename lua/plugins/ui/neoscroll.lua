@@ -4,7 +4,7 @@ require("neoscroll").setup({
 	stop_eof = true,
 	respect_scrolloff = false,
 	cursor_scrolls_alone = true,
-	duration_multiplier = 1.0,
+	duration_multiplier = 0.7,
 	performance_mode = false,
 	ignored_events = { "WinScrolled", "CursorMoved" },
 	telescope_scroll_opts = { duration = 250 },
