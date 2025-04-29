@@ -84,47 +84,8 @@ require("lualine").setup({
 					return filename
 				end,
 			},
-			function()
-				return "🌊🌊"
-			end,
-			-- function()
-			-- 	return require("pacman").get_pacman_text()
-			-- end,
 		},
 		lualine_x = {
-			-- function()
-			-- 	if vim.o.background == "light" then
-			-- 		return "󰖨"
-			-- 	else
-			-- 		return ""
-			-- 	end
-			-- end,
-			--
-			{
-				function()
-					local status = require("codeium.virtual_text").status()
-
-					if status.state == "idle" then
-						-- Output was cleared, for example when leaving insert mode
-						return " "
-					end
-
-					if status.state == "waiting" then
-						-- Waiting for response
-						return "Waiting..."
-					end
-
-					if status.state == "completions" and status.total > 0 then
-						return string.format("%d/%d", status.current, status.total)
-					end
-
-					return " 0 "
-				end,
-			},
-			function()
-				return "🌊🌊"
-			end,
-
 			{
 				function()
 					local command = require("noice").api.status.command.get()
@@ -138,10 +99,21 @@ require("lualine").setup({
 		},
 
 		lualine_y = {
+			{
+				function()
+					local status = require("codeium.virtual_text").status()
 
-			function()
-				return " "
-			end,
+					if status.state == "idle" then
+						return " "
+					elseif status.state == "waiting" then
+						return "  Waiting..."
+					elseif status.state == "completions" and status.total > 0 then
+						return string.format("  %d/%d", status.current, status.total)
+					else
+						return "  0"
+					end
+				end,
+			},
 			"filetype",
 		},
 		lualine_z = {
