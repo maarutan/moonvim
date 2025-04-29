@@ -40,7 +40,7 @@ require("plugins.extras.whoami")
 require("plugins.extras.kitty_term")
 
 -- snacks
-require("plugins.snacks.snacks")
+require("plugins.snacks.init")
 
 -- mini
 require("plugins.mini.comment")
