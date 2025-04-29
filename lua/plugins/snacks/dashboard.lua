@@ -1,6 +1,4 @@
-local M = {}
--- Function to create a new buffer
-function M.create_new_buffer()
+function create_new_buffer()
 	local new_name = vim.fn.input("New file name: ", "")
 	if new_name == "" then
 		vim.notify("creation canceled.", vim.log.levels.WARN, {
@@ -37,31 +35,15 @@ function M.create_new_buffer()
 	})
 end
 
-local function default_header()
-	return {
-		"",
-		"",
-		"",
-		"",
-		"",
-		"               ███╗   ███╗ ██████╗  ██████╗ ███╗   ██╗██╗   ██╗██╗███╗   ███╗               Z",
-		"               ████╗ ████║██╔═══██╗██╔═══██╗████╗  ██║██║   ██║██║████╗ ████║           Z    ",
-		"               ██╔████╔██║██║   ██║██║   ██║██╔██╗ ██║██║   ██║██║██╔████╔██║      z         ",
-		"               ██║╚██╔╝██║██║   ██║██║   ██║██║╚██╗██║╚██╗ ██╔╝██║██║╚██╔╝██║   z            ",
-		"               ██║ ╚═╝ ██║╚██████╔╝╚██████╔╝██║ ╚████║ ╚████╔╝ ██║██║ ╚═╝ ██║                ",
-		"               ╚═╝     ╚═╝ ╚═════╝  ╚═════╝ ╚═╝  ╚═══╝  ╚═══╝  ╚═╝╚═╝     ╚═╝                ",
-		"",
-		"",
-		"",
-		"",
-	}
-end
-
-require("dashboard").setup({
-	theme = "doom",
-	config = {
-		header = default_header(),
-		center = {
+return {
+	width = 50,
+	row = nil, -- dashboard position. nil for center
+	col = nil, -- dashboard position. nil for center
+	pane_gap = 10, -- empty columns between vertical panes
+	autokeys = "1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ", -- autokey sequence
+	preset = {
+		pick = nil,
+		keys = {
 			{
 				icon = "󰉖    ",
 				icon_hl = "Title",
@@ -87,7 +69,6 @@ require("dashboard").setup({
 					})
 				end,
 			},
-
 			{
 				icon = "󰈞    ",
 				icon_hl = "Title",
@@ -102,7 +83,6 @@ require("dashboard").setup({
 						attach_mappings = function(_, map)
 							local actions = require("telescope.actions")
 							local action_state = require("telescope.actions.state")
-
 							map("i", "<CR>", function(prompt_bufnr)
 								local selected_entry = action_state.get_selected_entry()
 
@@ -112,14 +92,11 @@ require("dashboard").setup({
 								end
 
 								local filepath = selected_entry.path
-								local file_dir = vim.fn.fnamemodify(filepath, ":p:h") -- Get the file directory
+								local file_dir = vim.fn.fnamemodify(filepath, ":p:h")
 
 								actions.close(prompt_bufnr)
 
-								-- Change the current directory to the file's directory
 								vim.cmd("cd " .. file_dir)
-
-								-- Open the file
 								vim.cmd("edit " .. vim.fn.fnameescape(filepath))
 							end)
 							return true
@@ -127,7 +104,6 @@ require("dashboard").setup({
 					})
 				end,
 			},
-
 			{
 				icon = "    ",
 				icon_hl = "Title",
@@ -167,24 +143,19 @@ require("dashboard").setup({
 									print("[Telescope] No selection")
 									return
 								end
-								-- Извлекаем путь к выбранному файлу
 								local filepath = selection.path or selection.filename
 								if filepath then
-									-- Меняем рабочую директорию
 									local dir = vim.fn.fnamemodify(filepath, ":h")
 									vim.cmd("cd " .. dir)
-									-- Принудительно открываем файл
 									vim.cmd("e! " .. filepath)
 								end
 
-								-- Проверяем, существует ли буфер перед его удалением
 								if vim.fn.bufexists(prompt_bufnr) == 1 then
 									-- Используем команду Bdelete для закрытия буфера
 									vim.cmd("Bdelete " .. prompt_bufnr)
 								end
 							end
 
-							-- Привязываем действие к Enter
 							map("i", "<CR>", open_and_change_dir)
 							map("n", "<CR>", open_and_change_dir)
 							return true
@@ -200,9 +171,8 @@ require("dashboard").setup({
 				key = "n",
 				keymap = "         SPC b n",
 				key_hl = "Number",
-				action = M.create_new_buffer,
+				action = create_new_buffer,
 			},
-
 			{
 				icon = "    ",
 				icon_hl = "Title",
@@ -213,22 +183,59 @@ require("dashboard").setup({
 				key_hl = "Number",
 				action = ":cd ~/.config/nvim | edit init.lua",
 			},
-			-- Quit Button [q]
 			{
 				desc = "                      󰩈 Quit [q]", -- Centered text
 				desc_hl = "String",
 				key = "q",
 				keymap = "         SPC q _",
 				key_hl = "Number",
-				action = ":qa", -- Quit Neovim command
+				action = ":quit", -- Quit Neovim command
 			},
 		},
-		-- Footer animation
-		footer = function()
-			local space = " "
-			local text = "Welcome to neovim 🚀 "
-			return { space, text }
+		header = [[
+███╗   ███╗ ██████╗  ██████╗ ███╗   ██╗██╗   ██╗██╗███╗   ███╗
+████╗ ████║██╔═══██╗██╔═══██╗████╗  ██║██║   ██║██║████╗ ████║
+██╔████╔██║██║   ██║██║   ██║██╔██╗ ██║██║   ██║██║██╔████╔██║
+██║╚██╔╝██║██║   ██║██║   ██║██║╚██╗██║╚██╗ ██╔╝██║██║╚██╔╝██║
+██║ ╚═╝ ██║╚██████╔╝╚██████╔╝██║ ╚████║ ╚████╔╝ ██║██║ ╚═╝ ██║
+╚═╝     ╚═╝ ╚═════╝  ╚═════╝ ╚═╝  ╚═══╝  ╚═══╝  ╚═╝╚═╝     ╚═╝
+    ]],
+	},
+	formats = {
+		icon = function(item)
+			if item.file and (item.icon == "file" or item.icon == "directory") then
+				return M.icon(item.file, item.icon)
+			end
+			return { item.icon, width = 2, hl = "icon" }
+		end,
+		footer = { "%s", align = "center" },
+		header = { "%s", align = "center" },
+		file = function(item, ctx)
+			local fname = vim.fn.fnamemodify(item.file, ":~")
+			fname = ctx.width and #fname > ctx.width and vim.fn.pathshorten(fname) or fname
+			if #fname > ctx.width then
+				local dir = vim.fn.fnamemodify(fname, ":h")
+				local file = vim.fn.fnamemodify(fname, ":t")
+				if dir and file then
+					file = file:sub(-(ctx.width - #dir - 2))
+					fname = dir .. "/…" .. file
+				end
+			end
+			local dir, file = fname:match("^(.*)/(.+)$")
+			return dir and { { dir .. "/", hl = "dir" }, { file, hl = "file" } } or { { fname, hl = "file" } }
 		end,
 	},
-})
-return M
+	sections = {
+		{ section = "header" },
+		{ section = "keys", gap = 1, padding = 1 },
+		{ section = "startup" },
+		{
+			section = "terminal",
+			cmd = "ascii-image-converter ~/Pictures/Profile/user.jpg -C -c ",
+			pane = 2,
+			indent = 1,
+			random = 9999999999999999999,
+			height = 25,
+		},
+	},
+}

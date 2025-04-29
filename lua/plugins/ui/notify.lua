@@ -5,19 +5,21 @@ require("notify").setup({
 	minimum_width = 20,
 	max_width = 40,
 	max_height = 10,
-	render = "minimal",
+	render = "wrapped-compact",
 	top_down = true,
-	fps = 144,
-	time_formats = {
+	time_formatn = {
 		notification = "  %I:%M %p",
 		notification_history = "  %Y-%m-%d %I:%M %p",
 	},
+	on_open = function(win)
+		vim.api.nvim_win_set_config(win, { border = "double" })
+	end,
 	icons = {
-		ERROR = "",
-		WARN = "",
-		INFO = "",
+		ERROR = "󰅚",
+		WARN = "󰀪",
+		INFO = "",
 		DEBUG = "",
-		TRACE = "✎",
+		TRACE = "󰌶",
 	},
 	level = vim.log.levels.WARN,
 })

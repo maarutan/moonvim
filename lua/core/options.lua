@@ -1,87 +1,92 @@
--- General settings
-vim.loader.enable()
-vim.opt.inccommand = "split"
-vim.opt.autoread = true
-vim.opt.list = true
-vim.opt.mouse = ""
-vim.cmd("set termguicolors")
-vim.opt.fillchars = {
-	fold = " ",
-	foldopen = "",
-	foldsep = " ",
-	eob = " ",
-	foldclose = "",
-}
+-- ┌─┐┌─┐┌┬┐┬┌─┐┌┐┌┌─┐
+-- │ │├─┘ │ ││ ││││└─┐
+-- └─┘┴   ┴ ┴└─┘┘└┘└─┘
+-- Copyright (c) 2025 maarutan. \ Marat Arzymatov  All Rights Reserved.
+-------------------------------------------------------------------------
+
+-- General options --
+vim.loader.enable() -- fast loader.
+vim.opt.syntax = "off" -- Disable syntax highlighting
+-- vim.opt.mouse = "" -- Mouse options.
+vim.opt.number = true -- Set numbers.
+vim.opt.relativenumber = true -- Set relativenumber.
+vim.opt.expandtab = true --  `Tab` will be converted to spaces.
+vim.opt.tabstop = 2 -- Number of spaces a `tab` character displays as (visual width).
+vim.opt.shiftwidth = 2 -- Number of spaces for each level of indentation (auto-indent step).
+vim.opt.autoread = true -- Automatically read the file if it was modified outside of Vim.
+vim.opt.cursorline = true -- Highlight the current line where the cursor is positioned.
+
+-- Clipboard
+vim.opt.clipboard = "unnamedplus" -- Use the system clipboard for all copy/paste operations
+
+-- Neo Chars
+vim.opt.list = true -- Display invisible characters like tabs, spaces, and end-of-line characters.
+vim.opt.foldenable = true -- Disable folding of code blocks, so everything stays visible
+
+-- Customize characters representing invisible characters in the text
 vim.opt.listchars = {
-	tab = "│ ",
-	trail = "→",
-	eol = "↴",
-	extends = "󰜵",
-	precedes = "󰜲",
+	tab = "| ", -- Display tabs as a vertical bar with a space after it.
+	trail = "→", -- Show trailing spaces as an arrow symbol.
+	-- eol = "↴",      -- Uncomment to show end-of-line characters as a downward arrow.
+	extends = "󰜵", -- Show overflowed characters (horizontal scroll) as a special symbol.
+	precedes = "󰜲", -- Show preceeding overflowed characters as a special symbol.
 }
-vim.cmd("filetype plugin indent on")
-vim.opt.cursorline = true
 
--- Line numbers
-vim.opt.number = true
-vim.opt.relativenumber = true
+-- Customize characters used in various parts of the UI
+vim.opt.fillchars = {
+	fold = " ", -- Character used to represent folded lines (empty space).
+	foldopen = "", -- Character used to represent an open fold (Nerd Font symbol).
+	foldsep = " ", -- Character separating folds (empty space).
+	eob = " ", -- Character used at the end of the buffer (empty space).
+	foldclose = "", -- Character used to represent a closed fold (Nerd Font symbol).
+}
 
--- Tabs and spaces
-vim.opt.expandtab = true
-vim.opt.tabstop = 2
-vim.opt.shiftwidth = 2
+-- Search settings --
+vim.opt.inccommand = "split" -- Show the effects of a substitution (e.g., :s) in a split window as you type the command.
+vim.opt.ignorecase = true -- Ignore case when searching (case-insensitive search).
+vim.opt.smartcase = true -- If the search query contains uppercase letters, the search becomes case-sensitive.
+vim.opt.hlsearch = true -- Enable highlighting of search matches. Use :nohlsearch to disable.
+vim.opt.incsearch = true -- Enable incremental search, results update as you type the search query.
 
--- disable auto comment
+-- Disable auto comment
 vim.api.nvim_create_autocmd("BufEnter", {
-	pattern = "*",
+	pattern = "*", -- This will apply to all files
 	callback = function()
-		vim.opt.formatoptions:remove("c")
-		vim.opt.formatoptions:remove("r")
-		vim.opt.formatoptions:remove("o")
+		vim.opt.formatoptions:remove("c") -- Removes 'c' formatting option (automatic insertion of comments)
+		vim.opt.formatoptions:remove("r") -- Removes the 'r' formatting option (automatic line break when typing)
+		vim.opt.formatoptions:remove("o") -- Removes the 'o' formatting option (automatic line continuation after 'o' or 'O')
 	end,
 })
 
--- Search settings
-vim.opt.ignorecase = true
-vim.opt.smartcase = true
-vim.opt.hlsearch = true
-vim.opt.incsearch = true
+-- Interface settings
+vim.opt.termguicolors = true -- Enable true color support for better visual experience
+vim.opt.signcolumn = "yes" -- Always show the sign column, even if not used
+vim.opt.wrap = false -- Disable line wrapping, so long lines will scroll horizontally
+vim.opt.textwidth = 0 -- Disable automatic text wrapping, text will continue on one line
 
--- Interface
-vim.opt.termguicolors = true
-vim.opt.signcolumn = "yes"
-vim.opt.wrap = false
-vim.opt.foldenable = false
-vim.opt.textwidth = 0
+-- Windows and splits settings
+vim.opt.splitright = true -- When using :vsplit, open new windows to the right of the current one
+vim.opt.splitbelow = true -- When using :split, open new windows below the current one
 
--- Windows and splits
-vim.opt.splitright = true
-vim.opt.splitbelow = true
+-- Performance settings
+vim.opt.updatetime = 100 -- Faster updates for responsiveness, but may increase resource usage
+vim.opt.timeoutlen = 500 -- Adjust how quickly vim processes key combinations
 
--- Performance
-vim.opt.updatetime = 100
-vim.opt.timeoutlen = 500
+-- Scrolling settings
+vim.opt.scrolloff = 8 -- Keep int lines visible above and below the cursor when scrolling vertically
+vim.opt.sidescrolloff = 8 -- Keep int columns visible to the left and right of the cursor when scrolling horizontally
 
--- Clipboard
-vim.opt.clipboard = "unnamedplus"
+-- File handling settings
+vim.opt.swapfile = false -- Disable swap files (no temporary swap files will be created)
+vim.opt.backup = false -- Disable backup files (no backup copies will be made)
+vim.opt.undofile = true -- Enable undo files (history of changes will be saved for recovery)
 
--- Scrolling
-vim.opt.scrolloff = 8
-vim.opt.sidescrolloff = 8
-
--- File handling
-vim.opt.swapfile = false
-vim.opt.backup = false
-vim.opt.undofile = true
+-- Set directory for undo files (create it if it doesn't exist)
 local undodir = vim.fn.stdpath("data") .. "/undo"
 if not vim.fn.isdirectory(undodir) then
-	vim.fn.mkdir(undodir, "p")
+	vim.fn.mkdir(undodir, "p") -- Create the directory for undo files
 end
-vim.opt.undodir = undodir
+vim.opt.undodir = undodir -- Set the directory for undo files
 
--- Syntax
-vim.opt.syntax = "off"
-
--- Command abbreviations
 vim.cmd([[cabbrev Q q]])
 vim.cmd([[cabbrev W w]])

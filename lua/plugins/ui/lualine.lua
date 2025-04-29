@@ -5,10 +5,20 @@ require("lualine").setup({
 		component_separators = { left = "", right = "" },
 		section_separators = { left = "", right = "" },
 		disabled_filetypes = {
-			winbar = { "dashboard" }, -- Если используется winbar, исключаем и его
-			statusline = { "dashboard" }, -- Убираем dashboard из статусной линии
+			winbar = {
+				"dashboard",
+			},
+			"snacks_dashboard",
+			statusline = {
+				"dashboard",
+			},
+			"snacks_dashboard",
 		},
-		ignore_focus = { "neo-tree", "dashboard" }, -- Игнорируем фокус в neo-tree
+		ignore_focus = {
+			"neo-tree",
+			"dashboard",
+			"snacks_dashboard",
+		}, -- Игнорируем фокус в neo-tree
 		always_divide_middle = true,
 		always_show_tabline = true,
 		globalstatus = true, -- Включаем общую статус-линию

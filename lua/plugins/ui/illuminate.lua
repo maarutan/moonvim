@@ -7,6 +7,7 @@ require("illuminate").configure({
 	filetypes_denylist = {
 		"neo-tree",
 		"dashboard",
+		"snacks_dashboard",
 		"help",
 		"toggleterm",
 		"gitgraph",

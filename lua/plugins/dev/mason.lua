@@ -1,5 +1,3 @@
-vim.keymap.set("n", "<leader>lm", ":Mason<CR>")
-
 ------------------
 --- Mason Setup ---
 ------------------

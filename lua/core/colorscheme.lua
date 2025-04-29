@@ -1,8 +1,8 @@
 ----------------------------------------------------------------
 --catppuccin
-require("core.lazyplug.colorscheme.catppuccin")
+-- require("core.lazyplug.colorscheme.catppuccin")
 --
---gruvbox
+-- gruvbox
 -- require("core.lazyplug.colorscheme.gruvbox")
 --
 --tokyonight
