@@ -179,10 +179,9 @@ bind("n", "<leader>dd", "<cmd>lua Snacks.dashboard()<CR>", opts) -- open Dashboa
 -- Yazi file manager
 -- WARN: dependence: https://github.com/floke/yazi
 bind("n", "<A-e>", "<cmd>Yazi cwd<CR>", opts)
-
 -- Mason
 --WARN: dependence https://github.com/williamboman/mason.nvim
-bind("n", "<leader>lm", ":Mason<CR>", opts)
+bind("n", "<leader>lm", "<cmd>Mason<CR>", opts)
 
 -- Bufferline
 --WARN: dependence https://github.com/akinsho/bufferline.nvim

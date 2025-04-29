@@ -21,7 +21,7 @@ require("plugins.editing.multi_cursor")
 require("plugins.editing.ufo")
 require("plugins.editing.autopairs")
 require("plugins.editing.cmp")
-require("plugins.editing.codium")
+require("plugins.editing.codeium")
 
 -- ui
 require("plugins.ui.split_resizer")

@@ -26,17 +26,11 @@ require("codeium").setup({
 		-- Key bindings for managing completions in virtual text mode.
 		key_bindings = {
 			-- Accept the current completion.
-			accept = "<Tab>",
+			accept = "<C-i>",
 			-- Accept the next word.
-			accept_word = false,
-			-- Accept the next line.
-			accept_line = false,
-			-- Clear the virtual text.
-			clear = false,
-			-- Cycle to the next completion.
-			next = "<M-]>",
+			next = "<C-n>",
 			-- Cycle to the previous completion.
-			prev = "<M-[>",
+			prev = "<C-p>",
 		},
 	},
 })
