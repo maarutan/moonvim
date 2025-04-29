@@ -1,4 +1,4 @@
-local path = "plugins.snacks."
+local path = "plugins.snacks.modules."
 local r = require
 
 require("snacks").setup({
