@@ -66,12 +66,12 @@ cmp.setup({
 	},
 
 	sources = cmp.config.sources({
+		{ name = "codeium" },
 		{ name = "vim-dadbod-completion" },
 		{ name = "nvim_lsp" },
 		{ name = "luasnip" },
 		{ name = "buffer" },
 		{ name = "path" },
-		{ name = "codeium" },
 	}),
 
 	window = {
