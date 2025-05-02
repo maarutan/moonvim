@@ -1,18 +1,11 @@
 local lspconfig = require("lspconfig")
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 lspconfig.html.setup({
-	capabilities = require("cmp_nvim_lsp").default_capabilities(),
-
-	settings = {
-		html = {
-			validate = true,
-			hover = true,
-			format = {
-				enable = true,
-			},
-		},
+	capabilities = capabilities,
+	filetypes = { "html", "htmldjango", "blade", "ejs" },
+	init_options = {
+		provideFormatter = true,
 	},
-
-	filetypes = { "html", "htm", "xhtml", "handlebars", "erb", "liquid" },
-	root_dir = lspconfig.util.root_pattern("package.json", ".git", "."),
+	root_dir = lspconfig.util.root_pattern("package.json", "node_modules", ".git"),
 })

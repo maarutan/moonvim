@@ -1,6 +1,8 @@
 return {
 	{ "catppuccin/nvim" }, -- colorscheme
+	{ "katawful/kat.nvim" }, -- colorscheme
 	{ "projekt0n/github-nvim-theme" }, -- colorscheme
+	{ "EdenEast/nightfox.nvim" }, -- colorscheme,
 	{ "Koalhack/koalight.nvim" }, -- colorscheme
 	{ "marko-cerovac/material.nvim" }, -- colorscheme
 	{ "ellisonleao/gruvbox.nvim" }, -- colorscheme
@@ -68,4 +70,13 @@ return {
 	{ "onsails/lspkind-nvim" }, -- cmp for nvim
 	{ "L3MON4D3/LuaSnip" }, -- support snipent for nvim
 	{ "Exafunction/codeium.nvim" }, -- ai complite for nvim `codeium`
+	{ "zbirenbaum/copilot.lua" }, -- `copilot` for nvim
+	{ "zbirenbaum/copilot-cmp" }, -- `copilot` for nvim
+	{ "CopilotC-Nvim/CopilotChat.nvim" }, -- `copilot` chat for nvim
+	{ "AndreM222/copilot-lualine" }, -- `copilot` lualine for nvim
+	{ "wakatime/vim-wakatime" }, -- wakatime for monitoring time
+	{ "windwp/nvim-ts-autotag" },
+	{ "uga-rosa/ccc.nvim" },
+	{ "L3MON4D3/LuaSnip" },
+	{ "rafamadriz/friendly-snippets" },
 }

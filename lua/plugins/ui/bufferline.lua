@@ -51,5 +51,24 @@ require("bufferline").setup({
 				separator = true,
 			},
 		},
+		---- custom modules
+		custom_areas = {
+			right = function()
+				-- local mode = vim.g.is_day_mode and "   󰖨  ▎" or "     ▎"
+				local fg = vim.g.is_day_mode and "#ffffff" or "#1e1e2e"
+				return {
+					{ text = mode, padding = 1 },
+					{ text = "", fg = fg, bg = bg },
+					{
+						text = "  ",
+						fg = fg,
+						bg = "#C75B5F",
+						-- left_mouse_command = function()
+						-- 	vim.cmd("Bdelete! %d")
+						-- end,
+					},
+				}
+			end,
+		},
 	},
 })

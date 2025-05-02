@@ -1,29 +1,32 @@
-----------
--- core --
-----------
---------------------------------
+-- ┌┬┐┌─┐┌─┐┌┐┌┬  ┬┬┌┬┐
+-- ││││ ││ ││││└┐┌┘││││
+-- ┴ ┴└─┘└─┘┘└┘ └┘ ┴┴ ┴
+-- Copyright (c) 2025 maarutan. \ Marat Arzymatov  All Rights Reserved.
+-------------------------------------------------------------------------
+------------ core --------------
 require("core.options")
 require("core.keymaps")
 require("core.lazy.lazy_manager")
--------------
--- PLUGIN --
--------------
---------------------------------
--- navigation
-require("plugins.navigation.neo_tree")
--- require("plugins.navigation.telescope")
-require("plugins.navigation.hop")
 
--- editing
+----------- PLUGIN -------------
+---- [ navigation ]
+require("plugins.navigation.neo_tree")
+require("plugins.navigation.hop")
+-- require("plugins.navigation.telescope")
+
+---- [ editing ]
 require("plugins.editing.todo")
 require("plugins.editing.nocut")
 require("plugins.editing.multi_cursor")
 require("plugins.editing.ufo")
 require("plugins.editing.autopairs")
 require("plugins.editing.cmp")
-require("plugins.editing.codeium")
 
--- ui
+---- [ ai ]
+require("plugins.ai.copilot.copilot")
+-- require("plugins.ai.codeium.codeium")
+
+---- [ ui ]
 require("plugins.ui.split_resizer")
 require("plugins.ui.lualine")
 require("plugins.ui.bufferline")
@@ -34,24 +37,26 @@ require("plugins.ui.eyeliner")
 -- require("plugins.ui.indent_line")
 -- require("plugins.ui.dashboard")
 
--- extras
+---- [ extras ]
 require("plugins.extras.tabs")
 require("plugins.extras.whoami")
 require("plugins.extras.kitty_term")
 
--- snacks
+---- [ snacks ]
 require("plugins.snacks.init")
 
--- mini
+---- [ mini ]
 require("plugins.mini.comment")
 
--- tools
--- require("plugins.tools.image")
+---- [ tools ]
 require("plugins.tools.toggleterm")
 require("plugins.tools.lspsaga")
+require("plugins.tools.ts-autotag")
+require("plugins.tools.ccc")
+-- require("plugins.tools.image")
 
--- colorscheme
+---- [ colorscheme ]
 require("plugins.colorscheme.col")
 
--- dev
+---- [ dev ]
 require("plugins.dev.init")

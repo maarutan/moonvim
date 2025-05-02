@@ -17,7 +17,6 @@ require("lspconfig").lua_ls.setup({
 				},
 				checkThirdParty = false,
 				preloadFileSize = 150,
-				ignoreDir = { ".git", "node_modules" },
 			},
 			telemetry = {
 				enable = false,

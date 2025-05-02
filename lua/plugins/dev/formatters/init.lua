@@ -60,7 +60,7 @@ require("formatter").setup({
 		------------
 		-- djinja --
 		------------
-		html = { djlint.format },
+		-- html = { djlint.format },
 		django = { djlint.format },
 
 		------------

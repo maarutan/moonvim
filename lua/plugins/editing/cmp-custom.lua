@@ -1,23 +1,27 @@
 local cmp = require("cmp")
-local bdr = "single" -- "rounded" | "single" | "double"  | "none"
 local luasnip = require("luasnip")
+local lspkind = require("lspkind")
 
 cmp.setup({
-	-- ui
-	window = {
-
-		completion = {
-			border = bdr,
-			winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:None",
-			col_offset = 4,
-		},
-		documentation = {
-			border = bdr,
-			winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:None",
-		},
+	snippet = {
+		expand = function(args)
+			luasnip.lsp_expand(args.body)
+		end,
 	},
 
 	mapping = {
+		-- C-Space: Toggle autocomplete menu
+		["<C-Space>"] = cmp.mapping(function(fallback)
+			if cmp.visible() then
+				cmp.close() -- Close the autocomplete menu
+			else
+				cmp.complete() -- Open the autocomplete menu and select the first item
+				cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+			end
+		end, { "i", "c" }),
+
+		-- C-e: Close autocomplete menu
+		["<C-e>"] = cmp.mapping.close(),
 
 		-- Tab / Shift-Tab: Confirm or navigate snippets
 		["<Tab>"] = cmp.mapping(function(fallback)
@@ -38,58 +42,54 @@ cmp.setup({
 			end
 		end, { "i", "s" }),
 
-		["<C-Space>"] = cmp.mapping(function()
-			if cmp.visible() then
-				cmp.close()
-			else
-				cmp.complete()
-				cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
-			end
-		end, { "i", "c" }),
-		["<C-e>"] = cmp.mapping.close(),
-
+		-- C-j / C-k: Navigate autocomplete suggestions
 		["<C-j>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
 		["<C-k>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
 
-		["<C-d>"] = cmp.mapping(function()
+		-- C-d / C-u: Scroll through autocomplete menu in larger steps
+		["<C-d>"] = cmp.mapping(function(fallback)
 			cmp.select_next_item({ behavior = cmp.SelectBehavior.Select, count = 4 })
 		end, { "i", "c" }),
 
-		["<C-u>"] = cmp.mapping(function()
+		["<C-u>"] = cmp.mapping(function(fallback)
 			cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select, count = 4 })
 		end, { "i", "c" }),
 
+		-- A-u / A-d: Switch focus to documentation popup and scroll
 		["<A-u>"] = cmp.mapping.scroll_docs(-4),
 		["<A-d>"] = cmp.mapping.scroll_docs(4),
 
-		["<CR>"] = cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Replace }),
+		-- Confirm selection with Enter, C-l, or C-Return
+		["<CR>"] = cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Replace }), -- Confirm only on manual confirmation
 		["<C-l>"] = cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Replace }),
 		["<C-Return>"] = cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Replace }),
 	},
 
 	sources = cmp.config.sources({
-		{
-			function()
-				local filetype = vim.fn.expand("%:e")
-				if filetype == "html" then
-					local name = "luasnip"
-					return name
-				end
-				local name = ""
-				return name
-			end,
-		},
-		{ name = "path" },
-		{ name = "luasnip" },
 		{ name = "copilot" },
 		{ name = "codeium" },
-		{ name = "nvim_lsp" },
+		{ name = "html-css" },
 		{ name = "vim-dadbod-completion" },
+		{ name = "nvim_lsp" },
+		{ name = "luasnip" },
 		{ name = "buffer" },
+		{ name = "path" },
 	}),
 
+	window = {
+		completion = {
+			border = "rounded",
+			winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:None",
+			col_offset = 4,
+		},
+		documentation = {
+			border = "rounded",
+			winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:None",
+		},
+	},
+
 	formatting = {
-		format = require("lspkind").cmp_format({
+		format = lspkind.cmp_format({
 			mode = "symbol_text",
 			maxwidth = 50,
 			ellipsis_char = "...",
@@ -106,9 +106,8 @@ cmp.setup({
 	},
 
 	experimental = {
-		ghost_text = true,
+		ghost_text = false,
 	},
-
 	cmp.setup.cmdline({ "/", "?" }, {
 		mapping = {
 			["<C-j>"] = cmp.mapping(function(fallback)
@@ -134,31 +133,30 @@ cmp.setup({
 			{ name = "buffer" },
 		},
 	}),
+})
+cmp.setup.cmdline(":", {
+	mapping = vim.tbl_extend("force", cmp.mapping.preset.cmdline(), {
+		["<C-j>"] = cmp.mapping(function(fallback)
+			if cmp.visible() then
+				cmp.select_next_item()
+			else
+				fallback()
+			end
+		end, { "c" }),
 
-	cmp.setup.cmdline(":", {
-		mapping = vim.tbl_extend("force", cmp.mapping.preset.cmdline(), {
-			["<C-j>"] = cmp.mapping(function(fallback)
-				if cmp.visible() then
-					cmp.select_next_item()
-				else
-					fallback()
-				end
-			end, { "c" }),
+		["<C-k>"] = cmp.mapping(function(fallback)
+			if cmp.visible() then
+				cmp.select_prev_item()
+			else
+				fallback()
+			end
+		end, { "c" }),
 
-			["<C-k>"] = cmp.mapping(function(fallback)
-				if cmp.visible() then
-					cmp.select_prev_item()
-				else
-					fallback()
-				end
-			end, { "c" }),
-
-			["<CR>"] = cmp.mapping.confirm({ select = true }),
-		}),
-		sources = cmp.config.sources({
-			{ name = "path" },
-			{ name = "cmdline" },
-		}),
+		["<CR>"] = cmp.mapping.confirm({ select = true }),
+	}),
+	sources = cmp.config.sources({
+		{ name = "path" },
+		{ name = "cmdline" },
 	}),
 })
 

@@ -26,8 +26,5 @@ lspconfig.cssls.setup({
 		"vue",
 		"svelte",
 	},
-	root_dir = lspconfig.util.root_pattern("package.json", ".git", "node_modules", "."),
-	on_attach = function(client)
-		client.server_capabilities.documentFormattingProvider = true
-	end,
+	root_dir = lspconfig.util.root_pattern("package.json", "node_modules", ".git"),
 })

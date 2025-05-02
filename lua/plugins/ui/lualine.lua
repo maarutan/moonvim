@@ -73,7 +73,7 @@ require("lualine").setup({
 		lualine_c = {
 			{
 				function()
-					local filename = vim.fn.expand("%:t") -- Получаем имя текущего файла
+					local filename = vim.fn.expand("%:t")
 					if filename == "" then
 						return "[No Name]"
 					end
@@ -87,6 +87,32 @@ require("lualine").setup({
 		},
 		lualine_x = {
 			{
+				"copilot",
+				-- Default values
+				symbols = {
+					status = {
+						icons = {
+							enabled = " ",
+							sleep = " ", -- auto-trigger disabled
+							disabled = " ",
+							warning = " ",
+							unknown = " ",
+						},
+						hl = {
+							enabled = "#50FA7B",
+							sleep = "#AEB7D0",
+							disabled = "#6272A4",
+							warning = "#FFB86C",
+							unknown = "#FF5555",
+						},
+					},
+					spinners = "dots", -- has some premade spinners
+					spinner_color = "#6272A4",
+				},
+				show_colors = false,
+				show_loading = true,
+			},
+			{
 				function()
 					local command = require("noice").api.status.command.get()
 					if command and command ~= "" then
@@ -99,21 +125,22 @@ require("lualine").setup({
 		},
 
 		lualine_y = {
-			{
-				function()
-					local status = require("codeium.virtual_text").status()
 
-					if status.state == "idle" then
-						return " "
-					elseif status.state == "waiting" then
-						return "  Waiting..."
-					elseif status.state == "completions" and status.total > 0 then
-						return string.format("  %d/%d", status.current, status.total)
-					else
-						return "  0"
-					end
-				end,
-			},
+			-- {
+			-- 	function()
+			-- 		local status = require("codeium.virtual_text").status()
+			--
+			-- 		if status.state == "idle" then
+			-- 			return " "
+			-- 		elseif status.state == "waiting" then
+			-- 			return "  Waiting..."
+			-- 		elseif status.state == "completions" and status.total > 0 then
+			-- 			return string.format("  %d/%d", status.current, status.total)
+			-- 		else
+			-- 			return "  0"
+			-- 		end
+			-- 	end,
+			-- },
 			"filetype",
 		},
 		lualine_z = {

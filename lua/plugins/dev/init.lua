@@ -10,3 +10,6 @@ require("plugins.dev.formatters.init")
 
 -- Mason
 require("plugins.dev.mason")
+
+-- snippets
+require("plugins.dev.snippets.luasnip")

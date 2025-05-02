@@ -28,15 +28,13 @@ bind("n", "<C-l>", "<C-w>l", opts) -- focus on right
 -- Window resizing
 bind("n", "<A-S-h>", ":vertical resize -30<cr>", opts) -- decrease width
 bind("n", "<A-S-l>", ":vertical resize +30<cr>", opts) -- increase width
+bind("n", "<A-S-j>", ":resize -5<cr>", opts) -- decrease height
+bind("n", "<A-S-k>", ":resize +5<cr>", opts) -- increase height
 
 bind("n", "<A-S-Right>", ":vertical resize -30<cr>", opts) -- decrease width
 bind("n", "<A-S-Left>", ":vertical resize +30<cr>", opts) -- increase width
 bind("n", "<A-S-Down>", ":resize -5<cr>", opts) -- decrease height
 bind("n", "<A-S-Up>", ":resize +5<cr>", opts) -- increase height
-
--- Bufferline navigation
-bind("n", "<S-j>", "<cmd>bNext<CR>", opts) -- cycle through buffers next
-bind("n", "<S-k>", "<cmd>bprevious<CR>", opts) -- cycle through buffers previous
 
 -- Search highlight clear
 bind("n", "<S-C-n>", ":nohl<CR>", opts) -- clear search highlight
@@ -198,3 +196,12 @@ bind("n", "<A-6>", "<cmd>BufferLineGoToBuffer 6<CR>") -- go to <int> buffer
 bind("n", "<A-7>", "<cmd>BufferLineGoToBuffer 7<CR>") -- go to <int> buffer
 bind("n", "<A-8>", "<cmd>BufferLineGoToBuffer 8<CR>") -- go to <int> buffer
 bind("n", "<A-9>", "<cmd>BufferLineGoToBuffer 9<CR>") -- go to <int> buffer
+
+-- next or previous buffer
+bind("n", "<S-j>", "<cmd>BufferLineCycleNext<CR>", opts) -- cycle through buffers next
+bind("n", "<S-k>", "<cmd>BufferLineCyclePrev<CR>", opts) -- cycle through buffers previous
+
+-- ccc Color picker and converter
+-- WARN: dependence: https://github.com/uga-rosa/ccc.nvim
+bind("n", "<leader>cp", "<cmd>CccPick<CR>", opts) -- color picker
+bind("n", "<leader>cc", "<cmd>CccConvert<CR>", opts) -- color picker
