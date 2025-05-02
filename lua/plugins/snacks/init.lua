@@ -9,4 +9,5 @@ require("snacks").setup({
 	notifier = r(path .. "notifier"),
 	styles = r(path .. "styles"),
 	image = r(path .. "image"),
+	picker = r(path .. "picker"),
 })
