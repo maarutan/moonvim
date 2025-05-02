@@ -1,0 +1,1 @@
+require("live-server").setup()

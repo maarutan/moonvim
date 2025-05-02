@@ -79,4 +79,7 @@ return {
 	{ "uga-rosa/ccc.nvim" },
 	{ "L3MON4D3/LuaSnip" },
 	{ "rafamadriz/friendly-snippets" },
+	{ "jackMort/ChatGPT.nvim" },
+	{ "folke/trouble.nvim" }, -- optional
+	{ "barrett-ruth/live-server.nvim", build = "pnpm add -g live-server" },
 }

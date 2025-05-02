@@ -7,7 +7,9 @@ lspconfig.marksman.setup({
 	capabilities = capabilities,
 	settings = {
 		marksman = {
-			workingDirectory = { mode = "auto" },
+			workingDirectory = {
+				mode = "auto", -- "auto" / "cwd" / "nearestAncestor"
+			},
 		},
 	},
 })

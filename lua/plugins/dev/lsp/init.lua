@@ -1,0 +1,12 @@
+require("plugins.dev.lsp.language_server_protocol.html") -- html-lsp
+require("plugins.dev.lsp.language_server_protocol.css") -- css-lsp
+require("plugins.dev.lsp.language_server_protocol.typescript") -- tsserver
+require("plugins.dev.lsp.language_server_protocol.lua") -- lua-lsp
+require("plugins.dev.lsp.language_server_protocol.python") -- pyright
+require("plugins.dev.lsp.language_server_protocol.bash") -- bash
+require("plugins.dev.lsp.language_server_protocol.c,c++") -- clangd
+require("plugins.dev.lsp.language_server_protocol.json") -- json-lsp
+require("plugins.dev.lsp.language_server_protocol.markdown") -- marksman
+require("plugins.dev.lsp.language_server_protocol.sql") -- sqls
+require("plugins.dev.lsp.language_server_protocol.hyprls") -- hyprland-lsp
+require("plugins.dev.lsp.language_server_protocol.emmet-ls") -- emmet-ls

@@ -24,6 +24,7 @@ require("plugins.editing.cmp")
 
 ---- [ ai ]
 require("plugins.ai.copilot.copilot")
+-- require("plugins.ai.chatgpt.chatgpt")
 -- require("plugins.ai.codeium.codeium")
 
 ---- [ ui ]
@@ -53,6 +54,7 @@ require("plugins.tools.toggleterm")
 require("plugins.tools.lspsaga")
 require("plugins.tools.ts-autotag")
 require("plugins.tools.ccc")
+require("plugins.tools.live-server")
 -- require("plugins.tools.image")
 
 ---- [ colorscheme ]

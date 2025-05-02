@@ -57,6 +57,17 @@ bind("n", "<leader>oc", function()
 	vim.cmd("edit ~/.config/nvim/init.lua") -- open init.lua
 end, opts)
 
+-- focus flouting buffer
+
+bind("n", "<Leader>bf", function()
+	for _, win in ipairs(vim.api.nvim_list_wins()) do
+		if vim.api.nvim_win_get_config(win).relative ~= "" then
+			vim.api.nvim_set_current_win(win)
+			break
+		end
+	end
+end, opts) -- focus floating buffer
+
 -- Macro recording toggle
 bind("n", "M", "q", opts) -- start recording macro
 

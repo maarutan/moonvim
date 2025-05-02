@@ -34,12 +34,12 @@ return {
 		-- render the image inline in the buffer
 		-- if your env doesn't support unicode placeholders, this will be disabled
 		-- takes precedence over `opts.float` on supported terminals
-		inline = true,
+		inline = false,
 		-- render the image in a floating window
 		-- only used if `opts.inline` is disabled
 		float = true,
-		max_width = 80,
-		max_height = 40,
+		max_width = 30,
+		max_height = 15,
 		-- Set to `true`, to conceal the image text when rendering inline.
 		-- (experimental)
 		---@param lang string tree-sitter language
@@ -69,6 +69,7 @@ return {
 		convert = false,
 		placement = false,
 	},
+
 	env = {},
 	-- icons used to show where an inline image is located that is
 	-- rendered below the text.

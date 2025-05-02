@@ -25,4 +25,13 @@ return {
 		wo = { winhighlight = "Normal:SnacksNotifierHistory" },
 		keys = { q = "close" },
 	},
+	image = {
+		relative = "cursor",
+		border = "rounded",
+		focusable = false,
+		backdrop = false,
+		row = 1,
+		col = 1,
+		-- width/height are automatically set by the image size unless specified below
+	},
 }
