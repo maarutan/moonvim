@@ -59,6 +59,7 @@ require("plugins.tools.lspsaga")
 require("plugins.tools.ts-autotag")
 require("plugins.tools.ccc")
 require("plugins.tools.live-server")
+require("plugins.tools.live-share")
 -- require("plugins.tools.auto-save") -- disable because i not want use it ( to turn it uncomment in `core.lazy.plugin_list` )
 -- require("plugins.tools.image") -- disable because use ( Snacks -  image )
 
