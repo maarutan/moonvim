@@ -4,8 +4,8 @@ local luasnip = require("luasnip")
 
 local bdr = "single" -- "rounded" | "single" | "double"  | "none"
 local custom_menu_icon = {
-	codeium = "󰘦 ",
-	copilot = " ",
+	codeium = "󰘦",
+	copilot = "",
 	calc = "󰃬",
 }
 
