@@ -145,10 +145,6 @@ bind("x", "<A-S-C-j>", "<Plug>GoVSDDown", {}) -- Copy  select (line \ letter) on
 bind("x", "<A-S-C-k>", "<Plug>GoVSDUp", {}) -- Copy  select (line \ letter) on up
 bind("x", "<A-S-C-l>", "<Plug>GoVSDRight", {}) -- Copy  select (line \ letter) on right
 
--- Reload Configure
--- WARN: dependence: https://github.com/famiu/nvim-reload
-bind("n", "<leader>nr", ":Reload<CR><CR>", opts) -- reload configure
-
 -- Current Path File
 --WARN: dependence: ~/.config/nvim/lua/plugins/extras.current_path_file.lua
 bind("n", "<leader>..", "<cmd>lua require('plugins.extras.current_path_file').show_file_path()<CR>", opts)
