@@ -31,7 +31,6 @@ return {
 	{ "kylechui/nvim-surround", opts = {} }, -- Add, change, and delete surroundings in Neovim.
 	{ "maarutan/splitResizer.nvim" }, -- Dynamic split resizing
 	{ "raddari/last-color.nvim" }, -- Save Last colorscheme
-	{ "famiu/nvim-reload" }, -- Reload configure Neovim
 	{ "nvim-lualine/lualine.nvim" }, -- Bottom status bar for Neovim.
 	{ "folke/noice.nvim" }, -- Strong change ui Neovim
 	{ "3rd/image.nvim" }, -- nvim support Image
@@ -62,6 +61,7 @@ return {
 	{ "nvimdev/lspsaga.nvim" }, -- more opportunities for lsp
 	{ "neovim/nvim-lspconfig" }, -- lsp supprot for nvim
 	{ "hrsh7th/nvim-cmp" }, -- cmp for nvim
+	{ "hrsh7th/cmp-calc" }, -- cmp for nvim
 	{ "hrsh7th/cmp-nvim-lsp" }, -- cmp for nvim
 	{ "hrsh7th/cmp-buffer" }, -- cmp for nvim
 	{ "hrsh7th/cmp-path" }, -- cmp for nvim
@@ -78,8 +78,10 @@ return {
 	{ "windwp/nvim-ts-autotag" },
 	{ "uga-rosa/ccc.nvim" },
 	{ "L3MON4D3/LuaSnip" },
-	{ "rafamadriz/friendly-snippets" },
-	{ "jackMort/ChatGPT.nvim" },
+	{ "rafamadriz/friendly-snippets" }, -- snippets from vscode for nvim
+	{ "jackMort/ChatGPT.nvim" }, -- ai chatgpt for nvim
 	{ "folke/trouble.nvim" }, -- optional
-	{ "barrett-ruth/live-server.nvim", build = "pnpm add -g live-server" },
+	{ "barrett-ruth/live-server.nvim", build = "pnpm add -g live-server" }, -- live server for html
+	{ "maarutan/coderunner.nvim" }, -- run code in nvim
+	-- { "pocco81/auto-save.nvim" }, -- auto save like vscode
 }
