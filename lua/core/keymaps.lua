@@ -93,6 +93,9 @@ bind("c", "<A-b>", "<C-Left>", noremap) -- move cursor to the beginning of the l
 bind("n", "<C-s>", "<cmd>write<CR>", opts) -- save current buffer
 bind("i", "<C-s>", "<cmd>write<CR>", opts) -- save current buffer
 
+bind("i", "<C-cr>", "<cmd>write<CR>", opts) -- save current buffer
+bind("n", "<C-cr>", "<cmd>write<CR>", opts) -- save current buffer
+
 -- plus point and minus point
 bind("n", "=", "<C-a>", opts) -- plus point
 bind("n", "-", "<C-x>", opts) -- minus point
@@ -104,9 +107,9 @@ bind("n", "-", "<C-x>", opts) -- minus point
 
 -- Terminal toggling
 -- WARN: dependence: https://github.com/akinsho/toggleterm.nvim
-bind("n", "<leader>tf", ":ToggleTerm direction=float<CR>", opts) -- toggle Terminal floating
-bind("n", "<leader>th", ":ToggleTerm direction=horizontal<CR>", opts) --  toggle Terminal horizontally
-bind("n", "<leader>tv", ":ToggleTerm direction=vertical size=40<CR>", opts) -- toggle Terminal vertically
+bind("n", "<leader>tf", "<cmd>ToggleTerm direction=float<CR>", opts) -- toggle Terminal floating
+bind("n", "<leader>th", "<cmd>ToggleTerm direction=horizontal<CR>", opts) --  toggle Terminal horizontally
+bind("n", "<leader>tv", "<cmd>ToggleTerm direction=vertical size=60<CR>", opts) -- toggle Terminal vertically
 
 -- Buffer management
 -- WARN: dependence: https://github.com/famiu/bufdelete.nvim
@@ -162,23 +165,26 @@ vim.api.nvim_set_keymap("n", "<leader>h", "<cmd>lua require'hop'.hint_words()<CR
 bind("n", "<leader>nu", "<cmd>lua Snacks.notifier.hide()<CR>", opts) -- hide notify
 bind("n", "<leader>nh", "<cmd>lua Snacks.notifier.show_history()<CR>", opts) -- history notify
 -- snacks `Telescope`
-bind("n", "<leader>fw", "<cmd>lua Snacks.picker.grep_word()<CR>", opts) -- search with grep
-bind("n", "<leader>fW", "<cmd>lua Snacks.picker.grep()<CR>", opts) -- search with grep
+bind("n", "<leader>fW", "<cmd>lua Snacks.picker.grep_word()<CR>", opts) -- search with grep
+bind("n", "<leader>fw", "<cmd>lua Snacks.picker.grep()<CR>", opts) -- search with grep
 bind("n", "<leader>fb", "<cmd>lua Snacks.picker.buffers()<CR>", opts) -- search buffers
 bind("n", "<leader>fr", "<cmd>lua Snacks.picker.recent()<CR>", opts) -- search recent
-bind("n", "<leader>fR", "<cmd>lua Snacks.picker.recent({cwd = vim.fn.stdpath('config')})<CR>", opts) -- search recent
-bind("n", "<leader>fg", "<cmd>lua Snacks.picker.git_files()<CR>", opts) -- search git files
 bind("n", "<leader>fp", "<cmd>lua Snacks.picker.projects()<CR>", opts) -- search projects
 bind("n", "<leader>fc", "<cmd>lua Snacks.picker.colorschemes()<CR>", opts) -- theme list
 bind("n", "<leader>fu", "<cmd>lua Snacks.picker.undo()<CR>", opts) -- undo list
-bind("n", "<leader>ff", "<cmd>lua Snacks.picker.files()<CR>", opts) -- undo list
-bind("n", "<leader>fF", "<cmd>lua Snacks.picker.files({cwd = vim.fn.stdpath('config')})<CR>", opts) -- undo list
+bind("n", "<leader>ff", "<cmd>lua Snacks.picker.files()<CR>", opts) -- find files list
 bind("n", "<leader>:", "<cmd>lua Snacks.picker.commands()<CR>", opts) -- theme list
-bind("n", "<leader>;", "<cmd>lua Snacks.picker.command_history()<CR>", opts) -- theme list
-bind("n", "<leader>fh", "<cmd>lua Snacks.picker.help()<CR>", opts) -- theme list
+bind("n", "<leader>;", "<cmd>lua Snacks.picker.command_history()<CR>", opts) -- cmdline history list
+bind("n", "<leader>fh", "<cmd>lua Snacks.picker.help()<CR>", opts) -- plugin and more help
+--git
+bind("n", "<leader>gb", "<cmd>lua Snacks.picker.git_branches()<CR>", opts) -- git branches
+bind("n", "<leader>gd", "<cmd>lua Snacks.picker.git_diff()<CR>", opts) -- git diff
+bind("n", "<leader>gl", "<cmd>lua Snacks.lazygit()<CR>", opts) -- lazy git
 
--- Dashboard
--- WARN: dependence: https://github.com/folke/snacks.nvim
+-- snacks `Buffer`
+bind("n", "<leader>br", "<cmd>lua Snacks.rename.rename_file()<CR>", opts) -- rename current file
+
+-- snacks `Dashboard`
 bind("n", "<leader>dd", "<cmd>lua Snacks.dashboard()<CR>", opts) -- open Dashboard
 
 -- Yazi file manager

@@ -67,6 +67,16 @@ require("neo-tree").setup({
 			{ source = "buffers", display_name = "󱚀  Buffers" },
 		},
 	},
+	event_handlers = {
+		{
+			event = "neo_tree_buffer_enter",
+			handler = function(arg)
+				vim.cmd([[
+              setlocal relativenumber
+            ]])
+			end,
+		},
+	},
 
 	commands = {
 		diff_files = function(state)

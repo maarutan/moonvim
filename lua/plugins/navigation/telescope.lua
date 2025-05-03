@@ -3,7 +3,6 @@ local telescope = require("telescope")
 local builtin = require("telescope.builtin")
 telescope.load_extension("notify")
 telescope.load_extension("file_browser")
-telescope.load_extension("undo")
 local actions = require("telescope.actions")
 local action_state = require("telescope.actions.state")
 
@@ -38,25 +37,23 @@ local function check_git_and_run(callback)
 	end
 end
 
--- Git key bindings
-vim.keymap.set("n", "<leader>gb", function()
-	check_git_and_run(builtin.git_branches)
-end, { desc = "Git branches" })
-
+-- -- Git key bindings
+-- vim.keymap.set("n", "<leader>gb", function()
+-- 	check_git_and_run(builtin.git_branches)
+-- end, { desc = "Git branches" })
+--
 vim.keymap.set("n", "<leader>gc", function()
 	check_git_and_run(builtin.git_commits)
-end, { desc = "Git commits" })
+end)
 
-vim.keymap.set("n", "<leader>gs", function()
-	check_git_and_run(builtin.git_status)
-end, { desc = "Git status" })
+-- vim.keymap.set("n", "<leader>gs", function()
+-- 	check_git_and_run(builtin.git_status)
+-- end, { desc = "Git status" })
 
 -- Additional functions
 -- vim.keymap.set("n", "<leader>cs", builtin.colorscheme, {
 --	desc = " Select colorscheme",
 -- })
---vim.keymap.set("n", "<leader>fu", "<cmd>Telescope undo<CR>", { desc = "󰣜 Open undo tree" })
---vim.keymap.set("n", "<leader>fn", "<cmd>Telescope notify<CR>", { desc = "󰍡 Notification history" })
 
 local function open_file_browser()
 	telescope.extensions.file_browser.file_browser({
@@ -152,25 +149,6 @@ telescope.setup({
 			},
 		},
 	},
-
-	extensions = {
-		undo = {
-			side_by_side = true,
-			layout_strategy = "vertical",
-			layout_config = { preview_height = 0.8 },
-			use_delta = true,
-			mappings = {
-				i = {
-					["<CR>"] = require("telescope-undo.actions").restore,
-					["<C-cr>"] = require("telescope-undo.actions").restore,
-				},
-				n = {
-					["<CR>"] = require("telescope-undo.actions").restore,
-					["<C-cr>"] = require("telescope-undo.actions").restore,
-				},
-			},
-		},
-	},
 })
 
 function _G.check_diagnostics(bufnr)
@@ -191,25 +169,22 @@ function _G.check_project_diagnostics()
 	return true
 end
 
-vim.api.nvim_set_keymap(
-	"n",
-	"<leader>df",
-	"<cmd>lua if _G.check_diagnostics(0) then require('telescope.builtin').diagnostics({ bufnr = 0 }) end<CR>",
-	{ desc = "Diagnostics for current file", noremap = true, silent = true }
-)
+-- vim.api.nvim_set_keymap(
+-- 	"n",
+-- 	"<leader>df",
+-- 	"<cmd>lua if _G.check_diagnostics(0) then require('telescope.builtin').diagnostics({ bufnr = 0 }) end<CR>",
+-- 	{ desc = "Diagnostics for current file", noremap = true, silent = true }
+-- )
 
-vim.api.nvim_set_keymap(
-	"n",
-	"<leader>da",
-	"<cmd>lua if _G.check_project_diagnostics() then require('telescope.builtin').diagnostics() end<CR>",
-	{ desc = "Diagnostics for entire project", noremap = true, silent = true }
-)
-
+-- vim.api.nvim_set_keymap(
+-- 	"n",
+-- 	"<leader>da",
+-- 	"<cmd>lua if _G.check_project_diagnostics() then require('telescope.builtin').diagnostics() end<CR>",
+-- 	{ desc = "Diagnostics for entire project", noremap = true, silent = true }
+-- )
+--
 vim.keymap.set("n", "<leader>fR", function()
-	local action_state = require("telescope.actions.state")
-	local telescope = require("telescope.builtin")
-
-	telescope.oldfiles({
+	require("telescope.builtin").oldfiles({
 		attach_mappings = function(prompt_bufnr, map)
 			local function open_and_change_dir()
 				local selection = action_state.get_selected_entry()
@@ -220,10 +195,10 @@ vim.keymap.set("n", "<leader>fR", function()
 				local filepath = selection.path or selection.filename
 				if filepath then
 					local dir = vim.fn.fnamemodify(filepath, ":h")
+					actions.close(prompt_bufnr) -- <-- Сначала закрываем Telescope picker
 					vim.cmd("cd " .. dir)
 					vim.cmd("e! " .. filepath)
 				end
-				vim.cmd("Bdelete " .. prompt_bufnr)
 			end
 
 			map("i", "<CR>", open_and_change_dir)
@@ -232,7 +207,6 @@ vim.keymap.set("n", "<leader>fR", function()
 		end,
 	})
 end, { noremap = true, silent = true, desc = "Open Recent Files and change directory" })
-
 -- vim.api.nvim_set_keymap(
 -- 	"n",
 -- 	"<leader>fr",

@@ -1,7 +1,9 @@
+local direction = require("plugins.tools.toggleterm").direction
+
 require("code-runner").setup({
 	keymap = "<A-S-r>",
 	interrupt_keymap = "<F2>",
-	terminal_mode = "float", -- Default terminal mode
+	terminal_mode = direction, -- Default terminal mode
 	commands = {
 		python = "python3 -u $dir/$fileName",
 		lua = "lua $dir/$fileName",

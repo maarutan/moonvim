@@ -4,6 +4,7 @@
 -- Copyright (c) 2025 maarutan. \ Marat Arzymatov  All Rights Reserved.
 -------------------------------------------------------------------------
 ------------ core --------------
+
 require("core.options")
 require("core.keymaps")
 require("core.lazy.lazy_manager")
@@ -12,7 +13,7 @@ require("core.lazy.lazy_manager")
 ---- [ navigation ]
 require("plugins.navigation.neo_tree")
 require("plugins.navigation.hop")
--- require("plugins.navigation.telescope") -- disable because  use ( Snacks -  picker )
+require("plugins.navigation.telescope") -- disable because  use ( Snacks -  picker )
 
 ---- [ editing ]
 require("plugins.editing.todo")
@@ -34,6 +35,8 @@ require("plugins.ui.bufferline")
 require("plugins.ui.noice")
 require("plugins.ui.scroll_view")
 require("plugins.ui.eyeliner")
+require("plugins.ui.gitsigns")
+require("plugins.ui.which_key")
 -- require("plugins.ui.notify") -- disable because use ( Snacks -  notify )
 -- require("plugins.ui.indent_line") -- disable because use ( Snacks -  indent line )
 -- require("plugins.ui.dashboard") -- disable because use ( Snacks -  dashboard )

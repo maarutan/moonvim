@@ -23,7 +23,6 @@ return {
 	{ "hadronized/hop.nvim" }, -- Fast and efficient symbol/word jumping for improved navigation in Neovim.
 	{ "folke/todo-comments.nvim" }, -- INFO: Highlight and manage `TODO` comments in Neovim.
 	{ "nvim-telescope/telescope.nvim" }, -- Fuzzy finder and picker for Neovim.
-	{ "debugloop/telescope-undo.nvim" }, -- Undo history as Telescope picker.
 	{ "nvim-telescope/telescope-file-browser.nvim" }, -- File browser extension for Telescope.
 	{ "rcarriga/nvim-notify" }, -- Fancy notification manager for Neovim.
 	{ "maarutan/nvim-nocut" }, -- uncut on removal.

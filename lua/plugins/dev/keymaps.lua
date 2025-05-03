@@ -24,6 +24,7 @@ local on_attach = function(client, bufnr)
 	buf_set_keymap("n", "<leader>dl", "<cmd>Lspsaga diagnostic_jump_next<CR>", opts)
 	buf_set_keymap("n", "<leader>dh", "<cmd>Lspsaga diagnostic_jump_prev<CR>", opts)
 	buf_set_keymap("n", "<leader>lR", "<cmd>LspRestart<CR>", opts)
+	buf_set_keymap("n", "<leader>lI", "<cmd>LspInfo<CR>", opts)
 	buf_set_keymap("n", "<leader>lS", "<cmd>LspStop<CR>", opts)
 	buf_set_keymap("n", "<leader>ls", "<cmd>LspStart<CR>", opts)
 end
