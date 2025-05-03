@@ -49,8 +49,9 @@ return {
 	sources = {},
 	focus = "input",
 	layout = {
-		cycle = true,
+		cycle = false,
 		--- Use the default layout or vertical if the window is too narrow
+		input = "bottom",
 		preset = function()
 			return vim.o.columns >= 120 and "default" or "vertical"
 		end,

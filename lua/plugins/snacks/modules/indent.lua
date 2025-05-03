@@ -1,4 +1,4 @@
-local icon = "|"
+local icon = "│" -- │
 return {
 	---@class snacks.indent.Config
 	---@field enabled? boolean
@@ -36,8 +36,8 @@ return {
 		style = "out",
 		easing = "linear",
 		duration = {
-			step = 400, -- ms per step
-			total = 500, -- maximum duration
+			step = 100, -- ms per step
+			total = 300, -- maximum duration
 		},
 	},
 	---@class snacks.indent.Scope.Config: snacks.scope.Config

@@ -90,5 +90,7 @@ ccc.setup({
 	highlighter = {
 		auto_enable = true,
 	},
-	ccc.picker.ansi_escape(),
+	pickers = {
+		ccc.picker.ansi_escape(),
+	},
 })

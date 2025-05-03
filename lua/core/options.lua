@@ -25,7 +25,7 @@ vim.opt.foldenable = true -- Disable folding of code blocks, so everything stays
 
 -- Customize characters representing invisible characters in the text
 vim.opt.listchars = {
-	tab = "| ", -- Display tabs as a vertical bar with a space after it.
+	tab = "│ ", -- Display tabs as a vertical bar with a space after it.
 	trail = "→", -- Show trailing spaces as an arrow symbol.
 	-- eol = "↴",      -- Uncomment to show end-of-line characters as a downward arrow.
 	extends = "󰜵", -- Show overflowed characters (horizontal scroll) as a special symbol.

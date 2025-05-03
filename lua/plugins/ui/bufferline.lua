@@ -63,9 +63,6 @@ require("bufferline").setup({
 						text = "  ",
 						fg = fg,
 						bg = "#C75B5F",
-						-- left_mouse_command = function()
-						-- 	vim.cmd("Bdelete! %d")
-						-- end,
 					},
 				}
 			end,
