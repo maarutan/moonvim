@@ -1,6 +1,13 @@
 local cmp = require("cmp")
-local bdr = "single" -- "rounded" | "single" | "double"  | "none"
+local cmp_autopairs = require("nvim-autopairs.completion.cmp")
 local luasnip = require("luasnip")
+
+local bdr = "single" -- "rounded" | "single" | "double"  | "none"
+local custom_menu_icon = {
+	codeium = "󰘦 ",
+	copilot = " ",
+	calc = "󰃬",
+}
 
 cmp.setup({
 	-- ui
@@ -81,6 +88,7 @@ cmp.setup({
 		},
 		{ name = "path" },
 		{ name = "luasnip" },
+		{ name = "calc" },
 		{ name = "copilot" },
 		{ name = "codeium" },
 		{ name = "nvim_lsp" },
@@ -89,24 +97,33 @@ cmp.setup({
 	}),
 
 	formatting = {
-		format = require("lspkind").cmp_format({
-			mode = "symbol_text",
-			maxwidth = 50,
-			ellipsis_char = "...",
-			menu = {
-				-- codeium = " ",
-				copilot = " ",
+		fields = { "kind", "abbr", "menu" },
+		format = function(entry, vim_item)
+			local kind = require("lspkind").cmp_format({
+				mode = "symbol_text",
+				maxwidth = 50,
+			})(entry, vim_item)
 
-				-- nvim_lsp = "[LSP]",
-				-- luasnip = "[Snippet]",
-				-- buffer = "[Buffer]",
-				-- path = "[Path]",
-			},
-		}),
+			local strings = vim.split(kind.kind, "%s", { trimempty = true })
+
+			if custom_menu_icon[entry.source.name] then
+				kind.kind = " " .. custom_menu_icon[entry.source.name] .. " "
+			else
+				kind.kind = " " .. (strings[1] or "") .. " "
+			end
+
+			local menu_label = strings[2] or entry.source.name or ""
+			if menu_label ~= "" then
+				menu_label = menu_label:sub(1, 1):upper() .. menu_label:sub(2)
+			end
+
+			kind.menu = "   [ " .. menu_label .. " ]"
+			return kind
+		end,
 	},
 
 	experimental = {
-		ghost_text = true,
+		ghost_text = false,
 	},
 
 	cmp.setup.cmdline({ "/", "?" }, {
@@ -161,6 +178,7 @@ cmp.setup({
 		}),
 	}),
 })
+cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 
 --commands
 vim.cmd([[
