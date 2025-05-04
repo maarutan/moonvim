@@ -26,8 +26,8 @@ bind("n", "<C-k>", "<C-w>k", opts) -- focus on up
 bind("n", "<C-l>", "<C-w>l", opts) -- focus on right
 
 -- Window resizing
-bind("n", "<A-S-h>", ":vertical resize -30<cr>", opts) -- decrease width
-bind("n", "<A-S-l>", ":vertical resize +30<cr>", opts) -- increase width
+bind("n", "<A-S-l>", ":vertical resize -10<cr>", opts) -- decrease width
+bind("n", "<A-S-h>", ":vertical resize +10<cr>", opts) -- increase width
 bind("n", "<A-S-j>", ":resize -5<cr>", opts) -- decrease height
 bind("n", "<A-S-k>", ":resize +5<cr>", opts) -- increase height
 

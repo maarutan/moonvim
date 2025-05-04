@@ -54,7 +54,7 @@ wk.add({
 	{ "<leader>lI", desc = "Info" },
 	{ "<leader>lR", desc = "Restart" },
 	{ "<leader>lr", desc = "Rename" },
-	{ "<leader>lc", desc = "Code Action" },
+	{ "<leader>la", desc = "Code Action" },
 
 	{ "<leader>d", group = "LSP Diagnostics" },
 	{ "<leader>dh", desc = "Goto Prev Diagnostics" },
