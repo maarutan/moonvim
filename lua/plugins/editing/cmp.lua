@@ -53,6 +53,20 @@ cmp.setup({
 				cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
 			end
 		end, { "i", "c" }),
+		["<S-Tab>"] = cmp.mapping(function(fallback)
+			if cmp.visible() then
+				cmp.select_prev_item({ behavior = cmp.SelectBehavior.Replace })
+			else
+				fallback()
+			end
+		end, { "i", "c" }),
+		["<Tab>"] = cmp.mapping(function(fallback)
+			if cmp.visible() then
+				cmp.select_next_item({ behavior = cmp.SelectBehavior.Replace })
+			else
+				fallback()
+			end
+		end, { "i", "c" }),
 		["<C-e>"] = cmp.mapping.close(),
 
 		["<C-j>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
@@ -143,6 +157,20 @@ cmp.setup({
 					fallback()
 				end
 			end, { "c" }),
+			["<Tab>"] = cmp.mapping(function(fallback)
+				if cmp.visible() then
+					cmp.select_next_item({ behavior = cmp.SelectBehavior.Replace })
+				else
+					fallback()
+				end
+			end, { "i", "c" }),
+			["<S-Tab>"] = cmp.mapping(function(fallback)
+				if cmp.visible() then
+					cmp.select_prev_item({ behavior = cmp.SelectBehavior.Replace })
+				else
+					fallback()
+				end
+			end, { "i", "c" }),
 
 			["<CR>"] = cmp.mapping.confirm({ select = true }),
 		},
@@ -171,7 +199,22 @@ cmp.setup({
 			end, { "c" }),
 
 			["<CR>"] = cmp.mapping.confirm({ select = true }),
+			["<S-Tab>"] = cmp.mapping(function(fallback)
+				if cmp.visible() then
+					cmp.select_prev_item({ behavior = cmp.SelectBehavior.Replace })
+				else
+					fallback()
+				end
+			end, { "i", "c" }),
+			["<Tab>"] = cmp.mapping(function(fallback)
+				if cmp.visible() then
+					cmp.select_next_item({ behavior = cmp.SelectBehavior.Replace })
+				else
+					fallback()
+				end
+			end, { "i", "c" }),
 		}),
+
 		sources = cmp.config.sources({
 			{ name = "path" },
 			{ name = "cmdline" },

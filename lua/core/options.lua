@@ -9,6 +9,7 @@ vim.loader.enable() -- fast loader.
 vim.opt.syntax = "off" -- Disable syntax highlighting
 -- vim.opt.mouse = "" -- Mouse options.
 vim.opt.number = true -- Set numbers.
+vim.opt.termguicolors = true
 vim.opt.relativenumber = true -- Set relativenumber.
 vim.opt.expandtab = true --  `Tab` will be converted to spaces.
 vim.opt.tabstop = 2 -- Number of spaces a `tab` character displays as (visual width).

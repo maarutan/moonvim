@@ -4,7 +4,6 @@
 -- Copyright (c) 2025 maarutan. \ Marat Arzymatov  All Rights Reserved.
 -------------------------------------------------------------------------
 ------------ core --------------
-
 require("core.options")
 require("core.keymaps")
 require("core.lazy.lazy_manager")
@@ -37,6 +36,7 @@ require("plugins.ui.scroll_view")
 require("plugins.ui.eyeliner")
 require("plugins.ui.gitsigns")
 require("plugins.ui.which_key")
+require("plugins.ui.highlight-colors")
 -- require("plugins.ui.notify") -- disable because use ( Snacks -  notify )
 -- require("plugins.ui.indent_line") -- disable because use ( Snacks -  indent line )
 -- require("plugins.ui.dashboard") -- disable because use ( Snacks -  dashboard )

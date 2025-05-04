@@ -83,5 +83,6 @@ return {
 	{ "barrett-ruth/live-server.nvim", build = "pnpm add -g live-server" }, -- live server for html
 	{ "maarutan/coderunner.nvim" }, -- run code in nvim
 	{ "azratul/live-share.nvim", dependencies = "jbyuki/instant.nvim" }, -- live share for nvim
+	{ "brenoprata10/nvim-highlight-colors" }, -- highlighting colors
 	-- { "pocco81/auto-save.nvim" }, -- auto save like vscode
 }
