@@ -86,4 +86,5 @@ return {
 	{ "brenoprata10/nvim-highlight-colors" }, -- highlighting colors
 	-- { "pocco81/auto-save.nvim" }, -- auto save like vscode
 	{ "fei6409/log-highlight.nvim" }, -- highlighting log files
+	{ "maarutan/pacman-anims-nvim", opts = {} }, -- pacman anims
 }
