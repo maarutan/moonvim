@@ -1,7 +1,8 @@
+local border = require("core.options").border
 require("lspsaga").setup({
 	ui = {
 		winbar_prefix = "    ",
-		border = "rounded",
+		border = border,
 		devicon = true,
 		foldericon = true,
 		title = true,

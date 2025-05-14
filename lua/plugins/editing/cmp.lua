@@ -2,7 +2,7 @@ local cmp = require("cmp")
 local cmp_autopairs = require("nvim-autopairs.completion.cmp")
 local luasnip = require("luasnip")
 
-local bdr = "single" -- "rounded" | "single" | "double"  | "none"
+local border = require("core.options").border
 local custom_menu_icon = {
 	codeium = "󰘦",
 	copilot = "",
@@ -14,12 +14,13 @@ cmp.setup({
 	window = {
 
 		completion = {
-			border = bdr,
+
+			border = border,
 			winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:None",
 			col_offset = 4,
 		},
 		documentation = {
-			border = bdr,
+			border = border,
 			winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:None",
 		},
 	},

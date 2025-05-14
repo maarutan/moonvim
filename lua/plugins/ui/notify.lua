@@ -1,3 +1,4 @@
+local border = require("core.options").border
 require("notify").setup({
 	stages = "fade_in_slide_out",
 	background_colour = "#000000",
@@ -12,7 +13,7 @@ require("notify").setup({
 		notification_history = "  %Y-%m-%d %I:%M %p",
 	},
 	on_open = function(win)
-		vim.api.nvim_win_set_config(win, { border = "double" })
+		vim.api.nvim_win_set_config(win, { border = border })
 	end,
 	icons = {
 		ERROR = "󰅚",

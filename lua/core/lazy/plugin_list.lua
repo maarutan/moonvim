@@ -85,4 +85,5 @@ return {
 	{ "azratul/live-share.nvim", dependencies = "jbyuki/instant.nvim" }, -- live share for nvim
 	{ "brenoprata10/nvim-highlight-colors" }, -- highlighting colors
 	-- { "pocco81/auto-save.nvim" }, -- auto save like vscode
+	{ "fei6409/log-highlight.nvim" }, -- highlighting log files
 }

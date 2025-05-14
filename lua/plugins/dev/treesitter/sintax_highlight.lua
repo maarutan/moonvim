@@ -69,3 +69,8 @@ require("nvim-treesitter.configs").setup({
 vim.filetype.add({
 	pattern = { [".*/hypr/.*%.conf"] = "hyprlang" },
 })
+
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+	pattern = "*.conf",
+	command = "set filetype=dosini",
+})

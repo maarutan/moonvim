@@ -5,9 +5,10 @@
 -------------------------------------------------------------------------
 
 -- General options --
+local border = "single" -- "rounded" | "single" | "double"  | "none"
 vim.loader.enable() -- fast loader.
 vim.opt.syntax = "off" -- Disable syntax highlighting
--- vim.opt.mouse = "" -- Mouse options.
+vim.opt.mouse = "" -- Mouse options.
 vim.opt.number = true -- Set numbers.
 vim.opt.termguicolors = true
 vim.opt.relativenumber = true -- Set relativenumber.
@@ -91,3 +92,7 @@ vim.opt.undodir = undodir -- Set the directory for undo files
 
 vim.cmd([[cabbrev Q q]])
 vim.cmd([[cabbrev W w]])
+
+return {
+	border = border,
+}

@@ -1,3 +1,4 @@
+local border = require("core.options").border
 local direction = "horizontal" -- 'vertical' | 'horizontal' | 'float'
 local size = 20
 
@@ -10,7 +11,7 @@ require("toggleterm").setup({
 	direction = direction, -- 'vertical' | 'horizontal' | 'float'
 	size = size,
 	float_opts = {
-		border = "rounded",
+		border = border,
 		width = 130,
 		height = 27,
 	},

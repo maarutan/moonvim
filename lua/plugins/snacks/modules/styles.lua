@@ -1,6 +1,7 @@
+local border = require("core.options").border
 return {
 	notification = {
-		border = "double",
+		border = border,
 		zindex = 100,
 		ft = "markdown",
 		wo = {
@@ -12,11 +13,11 @@ return {
 		bo = { filetype = "snacks_notif" },
 	},
 
-	notifycation_history = {
-		border = "double",
+	notification_history = {
+		border = border,
 		zindex = 100,
-		width = 0.6,
-		height = 0.6,
+		width = 0.9,
+		height = 0.9,
 		minimal = false,
 		title = " Notification History ",
 		title_pos = "center",
@@ -25,9 +26,10 @@ return {
 		wo = { winhighlight = "Normal:SnacksNotifierHistory" },
 		keys = { q = "close" },
 	},
+
 	image = {
 		relative = "cursor",
-		border = "rounded",
+		border = border,
 		focusable = false,
 		backdrop = false,
 		row = 1,
@@ -37,7 +39,7 @@ return {
 	input = {
 		backdrop = false,
 		position = "float",
-		border = "rounded",
+		border = border,
 		title_pos = "center",
 		height = 1,
 		width = 60,
