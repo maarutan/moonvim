@@ -18,10 +18,10 @@ require("lualine").setup({
 			"neo-tree",
 			"dashboard",
 			"snacks_dashboard",
-		}, -- Игнорируем фокус в neo-tree
+		},
 		always_divide_middle = true,
 		always_show_tabline = true,
-		globalstatus = true, -- Включаем общую статус-линию
+		globalstatus = true,
 		refresh = {
 			statusline = 100,
 			tabline = 100,
@@ -32,11 +32,11 @@ require("lualine").setup({
 		lualine_a = {
 			function()
 				if vim.fn.exists("b:VM_Selection") == 1 and not vim.tbl_isempty(vim.b.VM_Selection) then
-					local status = vim.fn["VMInfos"]().status:lower() -- Преобразуем статус в нижний регистр
+					local status = vim.fn["VMInfos"]().status:lower()
 					local replacements = {
 						["active"] = "󱢓 MCursor:",
 					}
-					return replacements[status] or status -- Заменяем, если статус найден в таблице
+					return replacements[status] or status
 				else
 					return ""
 				end
@@ -57,7 +57,75 @@ require("lualine").setup({
 			end,
 		},
 		lualine_b = {
-			{ "branch", icon = "" },
+			{ "branch", icon = "" },
+			{
+				function()
+					-- local not_repo = "[  not in repo ]"
+					local not_repo = ""
+					local git_dir = vim.fn.finddir(".git", vim.fn.expand("%:p:h") .. ";")
+					if git_dir == "" then
+						return not_repo
+					end
+
+					local handle = io.popen("git config --get remote.origin.url 2>/dev/null")
+					if not handle then
+						return not_repo
+					end
+
+					local url = handle:read("*a") or ""
+					handle:close()
+
+					if url == "" then
+						return not_repo
+					end
+
+					url = vim.trim(url)
+
+					local name = url:match("([^/]+)%.git$") or url:match("([^/]+)$")
+					if not name then
+						return not_repo
+					end
+					name = vim.trim(name)
+
+					local host = ""
+					if url:match("github%.com") then
+						host = "github"
+					elseif url:match("gitlab%.com") then
+						host = "gitlab"
+					elseif url:match("aur%.archlinux%.org") then
+						host = "aur"
+					elseif url:match("bitbucket%.org") then
+						host = "bitbucket"
+					elseif url:match("sourceforge%.net") then
+						host = "sourceforge"
+					elseif url:match("azure%.com") then
+						host = "azure"
+					elseif url:match("gitkraken%.com") then
+						host = "gitkraken"
+					elseif url:match("aws%.amazon%.com") then
+						host = "aws"
+					else
+						host = "git"
+					end
+
+					local clouds = {
+						aur = "󰣇",
+						github = "",
+						gitlab = "",
+						bitbucket = "",
+						sourceforge = "󱠇",
+						azure = "",
+						gitkraken = "",
+						aws = "",
+						git = "󰊢",
+					}
+
+					local icon = clouds[host] or "󰊢"
+
+					return string.format("%s %s", icon, name)
+				end,
+			},
+
 			{ "diff", icon = "" },
 			{ "diagnostics", icon = "󰅚 " },
 			{
