@@ -1,3 +1,4 @@
+local border = require("core.options").border
 vim.diagnostic.config({
 	signs = {
 		text = {
@@ -12,6 +13,7 @@ vim.diagnostic.config({
 require("neo-tree").setup({
 	retain_hidden_root_indent = true, -- IF the root node is hidden, keep the indentation anyhow.
 	hide_root_node = true, -- Hide the root node.
+	popup_border_style = border,
 
 	filesystem = {
 		filtered_items = {

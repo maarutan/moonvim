@@ -1,7 +1,11 @@
 local wk = require("which-key")
+local border = require("core.options").border
 
 wk.setup({
 	preset = "modern", --  "classic" | "modern" | "helix"
+	win = {
+		border = border,
+	},
 })
 
 wk.add({
