@@ -1,12 +1,13 @@
 ------------------
 --- Mason Setup ---
 ------------------
+local border = require("core.options").border
 
 require("mason").setup({
 	ui = {
 		width = 120,
 		height = 28,
-		border = "double",
+		border = border,
 		icons = {
 			package_installed = "󰄲  ",
 			package_pending = "   ",

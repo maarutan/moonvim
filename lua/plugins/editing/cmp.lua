@@ -114,26 +114,32 @@ cmp.setup({
 	formatting = {
 		fields = { "kind", "abbr", "menu" },
 		format = function(entry, vim_item)
-			local kind = require("lspkind").cmp_format({
+			local lspkind_fmt = require("lspkind").cmp_format({
 				mode = "symbol_text",
 				maxwidth = 50,
 			})(entry, vim_item)
 
-			local strings = vim.split(kind.kind, "%s", { trimempty = true })
+			local strings = vim.split(lspkind_fmt.kind, "%s", { trimempty = true })
 
 			if custom_menu_icon[entry.source.name] then
-				kind.kind = " " .. custom_menu_icon[entry.source.name] .. " "
+				lspkind_fmt.kind = " " .. custom_menu_icon[entry.source.name] .. " "
 			else
-				kind.kind = " " .. (strings[1] or "") .. " "
+				lspkind_fmt.kind = " " .. (strings[1] or "") .. " "
 			end
 
 			local menu_label = strings[2] or entry.source.name or ""
 			if menu_label ~= "" then
 				menu_label = menu_label:sub(1, 1):upper() .. menu_label:sub(2)
 			end
+			lspkind_fmt.menu = "   [ " .. menu_label .. " ]"
 
-			kind.menu = "   [ " .. menu_label .. " ]"
-			return kind
+			local color_item = require("nvim-highlight-colors").format(entry, { kind = vim_item.kind })
+			if color_item.abbr_hl_group then
+				lspkind_fmt.kind_hl_group = color_item.abbr_hl_group
+				lspkind_fmt.kind = color_item.abbr
+			end
+
+			return lspkind_fmt
 		end,
 	},
 
