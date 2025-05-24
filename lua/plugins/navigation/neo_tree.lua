@@ -15,76 +15,6 @@ local function witch(command)
 	return vim.fn.executable(command) == 1
 end
 
-local function is_directory(path)
-	local handle = io.popen('stat -c %F "' .. path:gsub('"', '\\"') .. '" 2>/dev/null')
-	local result = handle:read("*a")
-	handle:close()
-	result = result:gsub("%s+", "")
-	return result == "directory"
-end
-
-local function is_file(path)
-	local handle = io.popen('stat -c %F "' .. path:gsub('"', '\\"') .. '" 2>/dev/null')
-	local result = handle:read("*a")
-	handle:close()
-	result = result:gsub("%s+", "")
-	return result == "regularfile"
-end
-
-local function restore()
-	if witch("trash-restore") then
-		local handle = io.popen("trash-restore < /dev/null")
-		local result = handle:read("*a")
-		handle:close()
-
-		local max_index = -1
-		local max_line = nil
-
-		for line in result:gmatch("[^\r\n]+") do
-			local index = line:match("^%s*(%d+)")
-			if index then
-				index = tonumber(index)
-				if index > max_index then
-					max_index = index
-					max_line = line
-				end
-			end
-		end
-
-		local function extract_name_and_path(line)
-			local path = line:match("(%S+)$")
-			local name = path and path:match("([^/]+)$") or nil
-			return name, path
-		end
-
-		local filename, filepath = extract_name_and_path(max_line)
-
-		vim.fn.system("echo " .. tostring(max_index) .. " | trash-restore")
-
-		local desc_filetype
-		if is_directory(filepath) then
-			desc_filetype = "Directory 📂"
-		elseif is_file(filepath) then
-			desc_filetype = "File 📄"
-		else
-			desc_filetype = "Undefined 🤷"
-		end
-
-		vim.notify(
-			string.format("filename: %s\nfiletype: %s\nfilepath: %s", filename, desc_filetype, filepath),
-			vim.log.levels.WARN,
-			{
-				icon = "👽",
-				title = "Restore",
-				time = 10000,
-			}
-		)
-	else
-		vim.notify("`trash-cli`: no found", vim.log.levels.WARN, { icon = "🚮" })
-		return
-	end
-end
-
 local function is_cursor_bottom()
 	local current_line = vim.api.nvim_win_get_cursor(0)[1]
 	local total_lines = vim.api.nvim_buf_line_count(0)
@@ -177,7 +107,7 @@ require("neo-tree").setup({
 				["<C-u>"] = "scrollup",
 				["<C-d>"] = "scrolldown",
 
-				["d"] = "move_to_trash",
+				["d"] = "trash",
 				["u"] = "restore",
 
 				["k"] = "up",
@@ -267,24 +197,28 @@ require("neo-tree").setup({
 			up_down_handler(false)
 		end,
 
-		move_to_trash = function(state)
-			local node = state.tree:get_node()
-			if node.type == "message" then
-				return
-			end
-			local _, name = require("neo-tree.utils").split_path(node.path)
-			local msg = string.format("Are you sure you want to trash '%s'?", name)
-			inputs.confirm(msg, function(confirmed)
-				if not confirmed then
+		trash = function(state)
+			if witch("trash-put") then
+				local node = state.tree:get_node()
+				if node.type == "message" then
 					return
 				end
-				vim.fn.system({ "trash-put", node.path })
-				require("neo-tree.sources.manager").refresh(state)
-			end)
+				local _, name = require("neo-tree.utils").split_path(node.path)
+				local msg = string.format("Are you sure you want to trash '%s'?", name)
+				inputs.confirm(msg, function(confirmed)
+					if not confirmed then
+						return
+					end
+					vim.fn.system({ "trash-put", node.path })
+					require("neo-tree.sources.manager").refresh(state)
+				end)
+			else
+				vim.notify("`trash-cli`: no found", vim.log.levels.WARN, { icon = "🚮" })
+			end
 		end,
 
 		restore = function(state)
-			restore()
+			vim.cmd("BRestore")
 			require("neo-tree.sources.manager").refresh(state)
 		end,
 

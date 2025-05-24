@@ -7,6 +7,9 @@ require("noice").setup({
 			["cmp.entry.get_documentation"] = true,
 		},
 	},
+	cmdline = {
+		enabled = true,
+	},
 	--- lazy ---
 	-- presets = {
 	-- 	bottom_search = true, -- use a classic bottom cmdline for search

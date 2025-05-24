@@ -46,7 +46,8 @@ bind("n", "<A-S-Up>", [[<cmd>lua Resize.hor("-1", 30)<CR>]], opts)
 bind("n", "<S-C-n>", ":nohl<CR>", opts) -- clear search highlight
 
 -- Select all text
-bind("n", "<C-a>", "ggVG", opts) -- select all text
+-- bind("n", "<C-a>", "<cmd>normal! ma ggVG`a<CR>", opts)
+bind("n", "<C-a>", "<cmd>SelectAll<CR>", opts)
 
 -- Scroll(Up / Down)
 vim.keymap.set("n", "<C-d>", "<cmd>ScrollDown<CR>")
@@ -129,8 +130,8 @@ bind("n", "<leader>tv", "<cmd>ToggleTerm direction=vertical size=60<CR>", opts) 
 bind("n", "<leader>bd", "<cmd>BDelete<CR>", opts) -- close current buffer
 bind("n", "<A-q>", ":close<CR>", opts) -- close current tabs
 bind("n", "<A-S-q>", "<cmd>quitall!<CR>", opts) -- force quit
-bind("n", "bD", "<cmd>BDeleteFile<CR>", opts) -- delete current file
-bind("n", "bc", "<cmd>BCreateFile<CR>", opts) -- delete current file
+bind("n", "<leader>bD", "<cmd>BTrash<CR>", opts) -- delete current file
+bind("n", "<leader>bc", "<cmd>BCreateFile<CR>", opts) -- delete current file
 
 -- Neotree mappings
 -- WARN: dependence: https://github.com/nvim-neo-tree/neo-tree.nvim

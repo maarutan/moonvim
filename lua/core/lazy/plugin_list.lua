@@ -66,6 +66,7 @@ return {
 	{ "nvimdev/lspsaga.nvim" }, -- more opportunities for lsp
 	{ "neovim/nvim-lspconfig" }, -- lsp supprot for nvim
 	{ "hrsh7th/nvim-cmp" }, -- cmp for nvim
+	{ "hrsh7th/cmp-nvim-lua" }, -- cmp for nvim
 	{ "hrsh7th/cmp-calc" }, -- cmp for nvim
 	{ "hrsh7th/cmp-nvim-lsp" }, -- cmp for nvim
 	{ "hrsh7th/cmp-buffer" }, -- cmp for nvim

@@ -85,14 +85,94 @@ function BufferManager:create_new_buffer()
 	end
 end
 
-function BufferManager:delete_force()
-	local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":t")
-	local filepath = vim.api.nvim_buf_get_name(0)
-	vim.fn.delete(filepath)
-	self:notify("💀", "w", 5000, filename .. "Deleted")
+function BufferManager:witch(command)
+	return vim.fn.executable(command) == 1
 end
 
-function BufferManager:Bdelete(buffers, force, switchable_buffers)
+function BufferManager:delete_file()
+	local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":t")
+	local filepath = vim.api.nvim_buf_get_name(0)
+	-- vim.fn.delete(filepath)
+	if BufferManager:witch("trash-put") then
+		vim.fn.system("trash-put " .. filepath)
+		self:notify("🔪💀", "w", 5000, "==> ```" .. filename .. "```: \n ---->  deleted by `trash-put`")
+		self:bdelete()
+	else
+		self:notify("🚮", "w", 5000, "`trash-cli`: no found")
+	end
+end
+
+function BufferManager:is_directory(path)
+	local handle = io.popen('stat -c %F "' .. path:gsub('"', '\\"') .. '" 2>/dev/null')
+	local result = handle:read("*a")
+	handle:close()
+	result = result:gsub("%s+", "")
+	return result == "directory"
+end
+
+function BufferManager:is_file(path)
+	local handle = io.popen('stat -c %F "' .. path:gsub('"', '\\"') .. '" 2>/dev/null')
+	local result = handle:read("*a")
+	handle:close()
+	result = result:gsub("%s+", "")
+	return result == "regularfile"
+end
+
+function BufferManager:restore()
+	if self:witch("trash-restore") then
+		local handle = io.popen("trash-restore < /dev/null")
+		local result = handle:read("*a")
+		handle:close()
+
+		local max_index = -1
+		local max_line = nil
+
+		for line in result:gmatch("[^\r\n]+") do
+			local index = line:match("^%s*(%d+)")
+			if index then
+				index = tonumber(index)
+				if index > max_index then
+					max_index = index
+					max_line = line
+				end
+			end
+		end
+
+		local function extract_name_and_path(line)
+			local path = line:match("(%S+)$")
+			local name = path and path:match("([^/]+)$") or nil
+			return name, path
+		end
+
+		local filename, filepath = extract_name_and_path(max_line)
+
+		vim.fn.system("echo " .. tostring(max_index) .. " | trash-restore")
+
+		local desc_filetype
+		if self:is_directory(filepath) then
+			desc_filetype = "Directory 📂"
+		elseif self:is_file(filepath) then
+			desc_filetype = "File 📄"
+		else
+			desc_filetype = "Undefined 🤷"
+		end
+
+		vim.notify(
+			string.format("filename: %s\nfiletype: %s\nfilepath: %s", filename, desc_filetype, filepath),
+			vim.log.levels.WARN,
+			{
+				icon = "👽",
+				title = "Restore",
+				time = 10000,
+			}
+		)
+	else
+		vim.notify("`trash-cli`: no found", vim.log.levels.WARN, { icon = "🚮" })
+		return
+	end
+end
+
+function BufferManager:bdelete(buffers, force, switchable_buffers)
 	local api = vim.api
 	local cmd = vim.cmd
 	local fn = vim.fn
@@ -220,16 +300,14 @@ function BufferManager:Bdelete(buffers, force, switchable_buffers)
 	buf_kill(get_target_buffers(buffers), switchable_buffers, force)
 end
 
--- ---@param user_config table
--- function M.setup(user_config)
--- 	M.config = vim.tbl_deep_extend("force", M.config, user_config or {})
---
--- end
+_G.buffermanager = {}
+BufferManager.new()
+function _G.buffermanager.notify(msg) end
 
 local buffer_manager = BufferManager.new()
 
-vim.api.nvim_create_user_command("BDeleteFile", function()
-	buffer_manager:delete_force()
+vim.api.nvim_create_user_command("BTrash", function()
+	buffer_manager:delete_file()
 end, {})
 
 vim.api.nvim_create_user_command("BCreateFile", function()
@@ -237,7 +315,13 @@ vim.api.nvim_create_user_command("BCreateFile", function()
 end, {})
 
 vim.api.nvim_create_user_command("BDelete", function()
-	buffer_manager:Bdelete()
+	buffer_manager:bdelete()
 end, {})
+
+vim.api.nvim_create_user_command("BRestore", function()
+	buffer_manager:restore()
+end, {})
+
+-- _G.BufferManager = require("path.to.buffer_manager")
 
 return M

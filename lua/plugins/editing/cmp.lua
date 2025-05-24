@@ -128,6 +128,7 @@ cmp.setup({
 				return name
 			end,
 		},
+		{ name = "nvim_lua" },
 		{ name = "path" },
 		{ name = "luasnip" },
 		{ name = "calc" },
