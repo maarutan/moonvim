@@ -9,6 +9,33 @@ local custom_menu_icon = {
 	calc = "󰃬",
 }
 
+---@param up boolean
+local function smoothScrollCmd(up)
+	local max_scroll = 4
+	local counter = 0
+	local timer = vim.loop.new_timer()
+	timer:start(
+		0,
+		30,
+		vim.schedule_wrap(function()
+			counter = counter + 1
+			local ok
+			if up then
+				ok = cmp.select_next_item({ behavior = cmp.SelectBehavior.Select, count = 1 })
+			else
+				ok = cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select, count = 1 })
+			end
+			if not ok then
+				timer:stop()
+				return
+			end
+			if counter == max_scroll then
+				timer:stop()
+			end
+		end)
+	)
+end
+
 cmp.setup({
 	-- ui
 	window = {
@@ -74,11 +101,11 @@ cmp.setup({
 		["<C-k>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
 
 		["<C-d>"] = cmp.mapping(function()
-			cmp.select_next_item({ behavior = cmp.SelectBehavior.Select, count = 4 })
+			smoothScrollCmd(true)
 		end, { "i", "c" }),
 
 		["<C-u>"] = cmp.mapping(function()
-			cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select, count = 4 })
+			smoothScrollCmd(false)
 		end, { "i", "c" }),
 
 		["<A-u>"] = cmp.mapping.scroll_docs(-4),

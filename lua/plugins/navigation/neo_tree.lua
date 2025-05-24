@@ -1,4 +1,5 @@
 local border = require("core.options").border
+local inputs = require("neo-tree.ui.inputs")
 vim.diagnostic.config({
 	signs = {
 		text = {
@@ -9,6 +10,136 @@ vim.diagnostic.config({
 		},
 	},
 })
+
+local function witch(command)
+	return vim.fn.executable(command) == 1
+end
+
+local function is_directory(path)
+	local handle = io.popen('stat -c %F "' .. path:gsub('"', '\\"') .. '" 2>/dev/null')
+	local result = handle:read("*a")
+	handle:close()
+	result = result:gsub("%s+", "")
+	return result == "directory"
+end
+
+local function is_file(path)
+	local handle = io.popen('stat -c %F "' .. path:gsub('"', '\\"') .. '" 2>/dev/null')
+	local result = handle:read("*a")
+	handle:close()
+	result = result:gsub("%s+", "")
+	return result == "regularfile"
+end
+
+local function restore()
+	if witch("trash-restore") then
+		local handle = io.popen("trash-restore < /dev/null")
+		local result = handle:read("*a")
+		handle:close()
+
+		local max_index = -1
+		local max_line = nil
+
+		for line in result:gmatch("[^\r\n]+") do
+			local index = line:match("^%s*(%d+)")
+			if index then
+				index = tonumber(index)
+				if index > max_index then
+					max_index = index
+					max_line = line
+				end
+			end
+		end
+
+		local function extract_name_and_path(line)
+			local path = line:match("(%S+)$")
+			local name = path and path:match("([^/]+)$") or nil
+			return name, path
+		end
+
+		local filename, filepath = extract_name_and_path(max_line)
+
+		vim.fn.system("echo " .. tostring(max_index) .. " | trash-restore")
+
+		local desc_filetype
+		if is_directory(filepath) then
+			desc_filetype = "Directory 📂"
+		elseif is_file(filepath) then
+			desc_filetype = "File 📄"
+		else
+			desc_filetype = "Undefined 🤷"
+		end
+
+		vim.notify(
+			string.format("filename: %s\nfiletype: %s\nfilepath: %s", filename, desc_filetype, filepath),
+			vim.log.levels.WARN,
+			{
+				icon = "👽",
+				title = "Restore",
+				time = 10000,
+			}
+		)
+	else
+		vim.notify("`trash-cli`: no found", vim.log.levels.WARN, { icon = "🚮" })
+		return
+	end
+end
+
+local function is_cursor_bottom()
+	local current_line = vim.api.nvim_win_get_cursor(0)[1]
+	local total_lines = vim.api.nvim_buf_line_count(0)
+	return current_line == total_lines
+end
+
+local function is_cursor_top()
+	local current_line = vim.api.nvim_win_get_cursor(0)[1]
+	return current_line == 1
+end
+
+local function smoothScroll(key, delay, stop_int)
+	local timer = vim.loop.new_timer()
+	local line_count = vim.api.nvim_buf_line_count(0)
+	local counter = 0
+	timer:start(
+		0,
+		delay,
+		vim.schedule_wrap(function()
+			counter = counter + 1
+			vim.cmd("normal! " .. key)
+
+			if is_cursor_bottom() then
+				vim.cmd("normal! gg")
+			elseif is_cursor_top() then
+				vim.cmd("normal! G")
+			end
+
+			if counter == stop_int then
+				counter = 0
+				timer:stop()
+				timer:close()
+			end
+		end)
+	)
+end
+
+local function up_down_handler(up)
+	local before = vim.api.nvim_win_get_cursor(0)[1]
+
+	if up then
+		vim.cmd("normal! k")
+	else
+		vim.cmd("normal! j")
+	end
+
+	local after = vim.api.nvim_win_get_cursor(0)[1]
+	local total = vim.api.nvim_buf_line_count(0)
+
+	if before == 1 and up then
+		vim.cmd("normal! G")
+	elseif before == total and not up then
+		vim.cmd("normal! gg")
+	end
+end
 
 require("neo-tree").setup({
 	retain_hidden_root_indent = true, -- IF the root node is hidden, keep the indentation anyhow.
@@ -41,6 +172,16 @@ require("neo-tree").setup({
 				["H"] = "navigate_up",
 				["."] = "abs_path",
 				["D"] = "diff_files",
+				-- ["r"] = "rename",
+
+				["<C-u>"] = "scrollup",
+				["<C-d>"] = "scrolldown",
+
+				["d"] = "move_to_trash",
+				["u"] = "restore",
+
+				["k"] = "up",
+				["j"] = "down",
 
 				["<C-h>"] = "toggle_hidden",
 
@@ -78,9 +219,99 @@ require("neo-tree").setup({
             ]])
 			end,
 		},
+		{
+			event = require("neo-tree.events").FILE_OPENED,
+			handler = function()
+				vim.api.nvim_create_autocmd("BufReadPost", {
+					callback = function()
+						for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+							if
+								vim.api.nvim_buf_get_name(buf) == ""
+								and vim.api.nvim_buf_get_option(buf, "buftype") == ""
+							then
+								vim.api.nvim_buf_delete(buf, { force = true })
+							end
+						end
+					end,
+				})
+			end,
+		},
+		{
+			event = require("neo-tree.events").FILE_MOVED,
+			handler = function(data)
+				require("snacks.rename").on_rename_file(data.source, data.destination)
+			end,
+		},
+		{
+			event = require("neo-tree.events").FILE_RENAMED,
+			handler = function(data)
+				require("snacks.rename").on_rename_file(data.source, data.destination)
+			end,
+		},
 	},
 
 	commands = {
+		scrollup = function(state)
+			smoothScroll("k", 30, 3)
+		end,
+
+		scrolldown = function(state)
+			smoothScroll("j", 30, 3)
+		end,
+
+		up = function(state)
+			up_down_handler(true)
+		end,
+
+		down = function(state)
+			up_down_handler(false)
+		end,
+
+		move_to_trash = function(state)
+			local node = state.tree:get_node()
+			if node.type == "message" then
+				return
+			end
+			local _, name = require("neo-tree.utils").split_path(node.path)
+			local msg = string.format("Are you sure you want to trash '%s'?", name)
+			inputs.confirm(msg, function(confirmed)
+				if not confirmed then
+					return
+				end
+				vim.fn.system({ "trash-put", node.path })
+				require("neo-tree.sources.manager").refresh(state)
+			end)
+		end,
+
+		restore = function(state)
+			restore()
+			require("neo-tree.sources.manager").refresh(state)
+		end,
+
+		abs_path = function(state)
+			local node = state.tree:get_node()
+			if node and (node.type == "file" or node.type == "directory") then
+				local file_path = node:get_id()
+				local last_notification_id = nil
+
+				local function show_file_path()
+					if file_path == "" then
+						file_path = "Path doesn't exist"
+					else
+						file_path = file_path:gsub(vim.env.HOME, "~")
+					end
+
+					last_notification_id = vim.notify(file_path, vim.log.levels.INFO, {
+						title = (node.type == "file" and "Current File 📄" or "Current Directory 📁"),
+						replace = last_notification_id,
+						timeout = 4000,
+					})
+				end
+
+				show_file_path()
+			end
+		end,
+
 		diff_files = function(state)
 			local node = state.tree:get_node()
 			local log = require("neo-tree.log")

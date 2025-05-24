@@ -27,11 +27,19 @@ require("bufferline").setup({
 		left_trunc_marker = "",
 		right_trunc_marker = "",
 		sort_by = "insert_at_end", -- 'insert_after_current' |'insert_at_end' | 'id' | 'extension' | 'relative_directory' | 'directory' | 'tabs' | function(buffer_a, buffer_b)
-
 		-- without extensions
-		name_formatter = function(buf)
-			return vim.fn.fnamemodify(buf.name, ":t:r")
-		end,
+		-- name_formatter = function(buf)
+		-- 	return vim.fn.fnamemodify(buf.name, ":t:r")
+		-- end,
+
+		groups = {
+			items = {
+				{
+					name = "",
+					icon = "📌",
+				},
+			},
+		},
 
 		pick = {
 			alphabet = "asdfghjklwertyuiopcvbnm",
@@ -58,8 +66,8 @@ require("bufferline").setup({
 
 				local fg = vim.g.is_day_mode and "#ffffff" or "#1e1e2e"
 				return {
-					{ text = "🌊🌊🌊", bg = bg },
-					{ text = " │ ", bg = bg },
+					-- { text = "🌊🌊🌊", bg = bg },
+					-- { text = " │ ", bg = bg },
 					{
 						text = "  ",
 						fg = fg,

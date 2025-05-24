@@ -75,8 +75,8 @@ vim.opt.updatetime = 100 -- Faster updates for responsiveness, but may increase 
 vim.opt.timeoutlen = 500 -- Adjust how quickly vim processes key combinations
 
 -- Scrolling settings
-vim.opt.scrolloff = 8 -- Keep int lines visible above and below the cursor when scrolling vertically
-vim.opt.sidescrolloff = 8 -- Keep int columns visible to the left and right of the cursor when scrolling horizontally
+vim.opt.scrolloff = 4 -- Keep int lines visible above and below the cursor when scrolling vertically
+vim.opt.sidescrolloff = 4 -- Keep int columns visible to the left and right of the cursor when scrolling horizontally
 
 -- File handling settings
 vim.opt.swapfile = false -- Disable swap files (no temporary swap files will be created)

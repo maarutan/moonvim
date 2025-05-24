@@ -1,8 +1,15 @@
 return {
 	{ "catppuccin/nvim" }, -- colorscheme
+	{ "shaunsingh/nord.nvim" }, -- colorscheme
+	{ "Tsuzat/NeoSolarized.nvim" }, -- colorscheme
+	{ "kvrohit/substrata.nvim" }, -- colorscheme
 	{ "katawful/kat.nvim" }, -- colorscheme
+	{ "craftzdog/solarized-osaka.nvim" }, -- colorscheme
+	{ "maxmx03/solarized.nvim" }, -- colorscheme
 	{ "projekt0n/github-nvim-theme" }, -- colorscheme
 	{ "EdenEast/nightfox.nvim" }, -- colorscheme,
+	{ "nyoom-engineering/oxocarbon.nvim" }, -- colorscheme,
+	{ "rose-pine/neovim" }, -- colorscheme,
 	{ "Koalhack/koalight.nvim" }, -- colorscheme
 	{ "marko-cerovac/material.nvim" }, -- colorscheme
 	{ "ellisonleao/gruvbox.nvim" }, -- colorscheme
@@ -14,7 +21,6 @@ return {
 	{ "binhtran432k/dracula.nvim" }, -- colorscheme
 	{ "shaunsingh/moonlight.nvim" }, -- colorscheme
 	{ "akinsho/toggleterm.nvim" }, -- toggle terminal
-	{ "famiu/bufdelete.nvim" }, -- proper buffer closure
 	{ "nvim-neo-tree/neo-tree.nvim" }, -- file explorer
 	{ "nvim-lua/plenary.nvim" }, --  Lua utils for Neovim
 	{ "nvim-tree/nvim-web-devicons" }, -- Provides file type icons for Neovim plugins like nvim-tree, enhancing visual navigation.
@@ -86,5 +92,6 @@ return {
 	{ "brenoprata10/nvim-highlight-colors" }, -- highlighting colors
 	-- { "pocco81/auto-save.nvim" }, -- auto save like vscode
 	{ "fei6409/log-highlight.nvim" }, -- highlighting log files
-	{ "maarutan/pacman-anims-nvim", opts = {} }, -- pacman anims
+	-- { "karb94/neoscroll.nvim" }, -- smooth scroll for neovim
+	{ "echasnovski/mini.animate" }, -- animation for nvim
 }

@@ -26,15 +26,21 @@ bind("n", "<C-k>", "<C-w>k", opts) -- focus on up
 bind("n", "<C-l>", "<C-w>l", opts) -- focus on right
 
 -- Window resizing
-bind("n", "<A-S-l>", ":vertical resize -10<cr>", opts) -- decrease width
-bind("n", "<A-S-h>", ":vertical resize +10<cr>", opts) -- increase width
-bind("n", "<A-S-j>", ":resize -5<cr>", opts) -- decrease height
-bind("n", "<A-S-k>", ":resize +5<cr>", opts) -- increase height
+-- bind("n", "<A-S-l>", ":vertical resize -10<cr>", opts) -- decrease width
+-- bind("n", "<A-S-h>", ":vertical resize +10<cr>", opts) -- increase width
+-- bind("n", "<A-S-j>", ":resize -5<cr>", opts) -- decrease height
+-- bind("n", "<A-S-k>", ":resize +5<cr>", opts) -- increase height
 
-bind("n", "<A-S-Right>", ":vertical resize -30<cr>", opts) -- decrease width
-bind("n", "<A-S-Left>", ":vertical resize +30<cr>", opts) -- increase width
-bind("n", "<A-S-Down>", ":resize -5<cr>", opts) -- decrease height
-bind("n", "<A-S-Up>", ":resize +5<cr>", opts) -- increase height
+bind("n", "<A-S-l>", [[<cmd>lua Resize.ver("+2", 20)<CR>]], opts)
+bind("n", "<A-S-h>", [[<cmd>lua Resize.ver("-2", 20)<CR>]], opts)
+
+bind("n", "<A-S-j>", [[<cmd>lua Resize.hor("+1", 30)<CR>]], opts)
+bind("n", "<A-S-k>", [[<cmd>lua Resize.hor("-1", 30)<CR>]], opts)
+
+bind("n", "<A-S-Right>", [[<cmd>lua Resize.ver("+2", 20)<CR>]], opts)
+bind("n", "<A-S-Left>", [[<cmd>lua Resize.ver("-2", 20)<CR>]], opts)
+bind("n", "<A-S-Down>", [[<cmd>lua Resize.hor("+1", 30)<CR>]], opts)
+bind("n", "<A-S-Up>", [[<cmd>lua Resize.hor("-1", 30)<CR>]], opts)
 
 -- Search highlight clear
 bind("n", "<S-C-n>", ":nohl<CR>", opts) -- clear search highlight
@@ -42,14 +48,20 @@ bind("n", "<S-C-n>", ":nohl<CR>", opts) -- clear search highlight
 -- Select all text
 bind("n", "<C-a>", "ggVG", opts) -- select all text
 
+-- Scroll(Up / Down)
+vim.keymap.set("n", "<C-d>", "<cmd>ScrollDown<CR>")
+vim.keymap.set("n", "<C-u>", "<cmd>ScrollUp<CR>")
+vim.keymap.set("x", "<C-d>", "<cmd>ScrollDown<CR>")
+vim.keymap.set("x", "<C-u>", "<cmd>ScrollUp<CR>")
+
 -- Replace x functionality
 bind("n", "x", "d", opts) -- now x is equal to delete
 bind("v", "x", "d", opts) -- now x is equal to d in visual mode
 bind("n", "xx", "dd", opts) -- now xx is equal to delete line
 
 -- Terminal tab creation
-bind("n", "<leader>tT", ":tabnew | terminal<CR>", opts) -- create new terminal tab
-bind("n", "<leader>T", ":term<CR>", opts) -- create new terminal
+-- bind("n", "<leader>tT", ":tabnew | terminal<CR>", opts) -- create new terminal tab
+-- bind("n", "<leader>T", ":term<CR>", opts) -- create new terminal
 
 -- Open init.lua
 bind("n", "<leader>oc", function()
@@ -84,6 +96,7 @@ bind("c", "<A-l>", "<Right>", noremap) -- move cursor right
 --
 bind("c", "<A-0>", "<C-b>", noremap) -- move cursor to the beginning of the line
 bind("c", "<A-4>", "<C-e>", noremap) -- move cursor to the end of the line
+bind("n", "<A-d>", "<C-e>", noremap) -- move cursor to the end of the line
 --
 bind("c", "<A-w>", "<C-Right>", noremap) -- move cursor to the beginning of the line
 bind("c", "<A-e>", "<C-Right>", noremap) -- move cursor to the beginning of the line
@@ -113,9 +126,11 @@ bind("n", "<leader>tv", "<cmd>ToggleTerm direction=vertical size=60<CR>", opts) 
 
 -- Buffer management
 -- WARN: dependence: https://github.com/famiu/bufdelete.nvim
-bind("n", "<leader>bd", "<cmd>Bdelete<CR>", opts) -- close current buffer
+bind("n", "<leader>bd", "<cmd>BDelete<CR>", opts) -- close current buffer
 bind("n", "<A-q>", ":close<CR>", opts) -- close current tabs
 bind("n", "<A-S-q>", "<cmd>quitall!<CR>", opts) -- force quit
+bind("n", "bD", "<cmd>BDeleteFile<CR>", opts) -- delete current file
+bind("n", "bc", "<cmd>BCreateFile<CR>", opts) -- delete current file
 
 -- Neotree mappings
 -- WARN: dependence: https://github.com/nvim-neo-tree/neo-tree.nvim
@@ -186,6 +201,9 @@ bind("n", "<leader>br", "<cmd>lua Snacks.rename.rename_file()<CR>", opts) -- ren
 
 -- snacks `Dashboard`
 bind("n", "<leader>dd", "<cmd>lua Snacks.dashboard()<CR>", opts) -- open Dashboard
+
+-- -- snacks  `Terminal`
+-- bind("n", "<C-t>", "<cmd>lua Snacks.terminal.toggle()<CR>", opts) -- open Dashboard
 
 -- Yazi file manager
 -- WARN: dependence: https://github.com/floke/yazi

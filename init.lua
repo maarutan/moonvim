@@ -29,6 +29,7 @@ require("plugins.ai.codeium.codeium")
 
 ---- [ ui ]
 require("plugins.ui.split_resizer")
+-- require("plugins.ui.neoscroll")
 require("plugins.ui.lualine")
 require("plugins.ui.bufferline")
 require("plugins.ui.noice")
@@ -43,8 +44,8 @@ require("plugins.ui.highlight_log")
 -- require("plugins.ui.dashboard") -- disable because use ( Snacks -  dashboard )
 
 ---- [ extras ]
-require("plugins.extras.tabs")
 require("plugins.extras.whoami")
+require("plugins.extras.tabs")
 require("plugins.extras.kitty_term")
 
 ---- [ snacks ]
@@ -52,6 +53,7 @@ require("plugins.snacks.init")
 
 ---- [ mini ]
 require("plugins.mini.comment")
+-- require("plugins.mini.animate")
 
 ---- [ tools ]
 require("plugins.tools.toggleterm")
@@ -69,3 +71,8 @@ require("plugins.colorscheme.col")
 
 ---- [ dev ]
 require("plugins.dev.init")
+
+---- [ misk ]
+require("plugins.misc.scroll_resize")
+require("plugins.misc.buffer_manager")
+-- require("plugins.misc.trash_cli")
