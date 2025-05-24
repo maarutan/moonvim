@@ -1,3 +1,4 @@
+local border = require("core.options").border
 require("noice").setup({
 	lsp = {
 		override = {
@@ -34,6 +35,10 @@ require("noice").setup({
 
 	views = {
 		cmdline_popup = {
+			border = {
+				style = border,
+				-- padding = { 1, 1 },
+			},
 			position = {
 				row = "37%",
 				col = "50%",
