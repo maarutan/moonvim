@@ -44,6 +44,7 @@ local servers = {
 	"yamlls",
 	"clangd",
 	"hyprls",
+	"nil_ls",
 }
 for _, server in ipairs(servers) do
 	lspconfig[server].setup({

@@ -92,14 +92,65 @@ end
 function BufferManager:delete_file()
 	local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":t")
 	local filepath = vim.api.nvim_buf_get_name(0)
-	-- vim.fn.delete(filepath)
-	if BufferManager:witch("trash-put") then
-		vim.fn.system("trash-put " .. filepath)
+	local msg = string.format("-- (y/N) -- you want to trash  '%s' ???", filename)
+	local input = self:input(msg)
+	if input == "y" or input == "Y" then
+		vim.fn.delete(filepath)
 		self:notify("🔪💀", "w", 5000, "==> ```" .. filename .. "```: \n ---->  deleted by `trash-put`")
 		self:bdelete()
 	else
-		self:notify("🚮", "w", 5000, "`trash-cli`: no found")
+		return nil
 	end
+end
+
+function BufferManager:input_handler_ask(default_is_yes, message, func_true, func_false)
+	func_true = func_true or function() end
+	func_false = func_false or function() end
+
+	local default_yes = default_is_yes == "yes" or default_is_yes == "y" or default_is_yes == true
+	local suffix = default_yes and "[Y/n]" or "[y/N]"
+	local prompt = string.format("%s %s: ", message, suffix)
+
+	vim.fn.inputsave()
+	local input = self:input(prompt)
+
+	vim.fn.inputrestore()
+
+	input = input:lower()
+
+	if input == "" then
+		if default_yes then
+			return func_true()
+		else
+			return func_false()
+		end
+	end
+
+	if input == "y" or input == "yes" then
+		return func_true()
+	elseif input == "n" or input == "no" then
+		return func_false()
+	else
+		return self:input_handler_ask(default_is_yes, message, func_true, func_false)
+	end
+end
+
+function BufferManager:move_to_trash()
+	local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":t")
+	local filepath = vim.api.nvim_buf_get_name(0)
+	local msg = string.format("you want to trash  '%s' ???", filename)
+
+	self:input_handler_ask("no", msg, function()
+		if BufferManager:witch("trash-put") then
+			vim.fn.system("trash-put " .. vim.fn.fnameescape(filepath))
+			self:notify("🔪💀", "w", 5000, "==> ```" .. filename .. "```: \n ---->  deleted by `trash-put`")
+			self:bdelete()
+		else
+			self:notify("🚮", "w", 5000, "`trash-cli`: not found")
+		end
+	end, function()
+		self:notify("❌", "i", 2000, "Cancelled trashing `" .. filename .. "`")
+	end)
 end
 
 function BufferManager:is_directory(path)
@@ -300,28 +351,66 @@ function BufferManager:bdelete(buffers, force, switchable_buffers)
 	buf_kill(get_target_buffers(buffers), switchable_buffers, force)
 end
 
-_G.buffermanager = {}
-BufferManager.new()
-function _G.buffermanager.notify(msg) end
-
 local buffer_manager = BufferManager.new()
 
-vim.api.nvim_create_user_command("BTrash", function()
-	buffer_manager:delete_file()
-end, {})
+local user_command = function(commands)
+	for _, cmd in ipairs(commands) do
+		local name = cmd[1]
+		local func = cmd[2]
+		vim.api.nvim_create_user_command(name, function()
+			func()
+		end, {})
+	end
+end
 
-vim.api.nvim_create_user_command("BCreateFile", function()
-	buffer_manager:create_new_buffer()
-end, {})
+function add_in_global(functions)
+	_G.buffermanager = _G.buffermanager or {}
 
-vim.api.nvim_create_user_command("BDelete", function()
-	buffer_manager:bdelete()
-end, {})
+	for name, func in pairs(functions) do
+		_G.buffermanager[name] = func
+	end
+end
 
-vim.api.nvim_create_user_command("BRestore", function()
-	buffer_manager:restore()
-end, {})
+user_command({
+	{
+		"BDelete",
+		function()
+			buffer_manager:bdelete()
+		end,
+	},
+	{
+		"BTrash",
+		function()
+			buffer_manager:move_to_trash()
+		end,
+	},
+	{
+		"BDeleteFile",
+		function()
+			buffer_manager:delete_file()
+		end,
+	},
+	{
+		"BCreateFile",
+		function()
+			buffer_manager:create_new_buffer()
+		end,
+	},
+	{
+		"BRestore",
+		function()
+			buffer_manager:restore()
+		end,
+	},
+})
 
--- _G.BufferManager = require("path.to.buffer_manager")
+add_in_global({
+	input = function(...)
+		return buffer_manager:input(...)
+	end,
+	notify = function(...)
+		return buffer_manager:notify(...)
+	end,
+})
 
 return M

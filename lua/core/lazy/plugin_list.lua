@@ -38,7 +38,6 @@ return {
 	{ "raddari/last-color.nvim" }, -- Save Last colorscheme
 	{ "nvim-lualine/lualine.nvim" }, -- Bottom status bar for Neovim.
 	{ "folke/noice.nvim" }, -- Strong change ui Neovim
-	{ "3rd/image.nvim" }, -- nvim support Image
 	{ "lukas-reineke/indent-blankline.nvim" }, -- indent line back line
 	{ "echasnovski/mini.indentscope" }, -- indent line back line anims
 	{ "echasnovski/mini.comment" }, -- nvim comments

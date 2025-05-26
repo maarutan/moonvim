@@ -36,6 +36,7 @@ require("mason-tool-installer").setup({
 		"sqlls", -- SQL
 		"taplo", -- TOML
 		"hyprls", -- Hyprland
+		"nil", -- Nix
 
 		--- Linters ---
 		"beautysh", -- Shell scripts
@@ -52,10 +53,11 @@ require("mason-tool-installer").setup({
 		"yamllint", -- YAML
 
 		--- Formatters ---
+		"nixpkgs-fmt", -- Nix
 		"black", -- Python
 		"prettier", -- General-purpose (JS, CSS, HTML)
 		"prettierd", -- Lightweight Prettier
-		-- "stylua", -- Lua
+		"stylua", -- Lua
 	},
 	auto_update = true, -- Automatically update tools
 	run_on_start = true, -- Install tools on startup

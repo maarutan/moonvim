@@ -1,6 +1,8 @@
 require("codeium").setup({
 	-- Optionally disable cmp source if using virtual text only
 	enable_cmp_source = true,
+    some_option = "",
+
 	virtual_text = {
 		enabled = true,
 

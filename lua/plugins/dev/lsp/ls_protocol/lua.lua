@@ -1,18 +1,19 @@
-local cmp_nvim_lsp = require("cmp_nvim_lsp")
+local lspconfig = require("lspconfig")
 
-require("lspconfig").lua_ls.setup({
-	capabilities = cmp_nvim_lsp.default_capabilities(),
+lspconfig.lua_ls.setup({
+	cmd = { "lua-language-server" },
 	settings = {
 		Lua = {
 			runtime = {
 				version = "LuaJIT",
+				path = vim.split(package.path, ";"),
 			},
 			diagnostics = {
 				globals = { "vim" },
 			},
 			workspace = {
 				library = {
-					vim.fn.expand("$VIMRUNTIME"),
+					vim.env.VIMRUNTIME,
 					vim.fn.stdpath("config"),
 				},
 				checkThirdParty = false,
