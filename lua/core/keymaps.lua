@@ -114,6 +114,32 @@ map("n", "<C-cr>", "<cmd>write<CR>", opts) -- save current buffer
 map("n", "=", "<C-a>", opts) -- plus point
 map("n", "-", "<C-x>", opts) -- minus point
 
+local function up_or_down_handler(up)
+	local before = vim.api.nvim_win_get_cursor(0)[1]
+
+	if up then
+		vim.cmd("normal! k")
+	else
+		vim.cmd("normal! j")
+	end
+
+	local after = vim.api.nvim_win_get_cursor(0)[1]
+	local total = vim.api.nvim_buf_line_count(0)
+
+	if before == 1 and up then
+		vim.cmd("normal! G")
+	elseif before == total and not up then
+		vim.cmd("normal! gg")
+	end
+end
+
+map("n", "k", function()
+	up_or_down_handler(true)
+end, opts)
+map("n", "j", function()
+	up_or_down_handler(false)
+end, opts)
+
 -- ┌─┐┬  ┬ ┬┌─┐┬┌┐┌┌─┐  ┬┌─┌─┐┬ ┬┌┬┐┌─┐┌─┐┌─┐
 -- ├─┘│  │ ││ ┬││││└─┐  ├┴┐├┤ └┬┘│││├─┤├─┘└─┐
 -- ┴  ┴─┘└─┘└─┘┴┘└┘└─┘  ┴ ┴└─┘ ┴ ┴ ┴┴ ┴┴  └─┘
