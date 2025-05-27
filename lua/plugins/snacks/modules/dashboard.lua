@@ -231,7 +231,7 @@ return {
 		{ section = "startup" },
 		{
 			section = "terminal",
-			cmd = "ascii-image-converter ~/Pictures/Profile/user.jpg -C -c ",
+			cmd = "ascii-image-converter ~/.config/nvim/.pictures/maaru.jpg -C -c ",
 			pane = 2,
 			indent = 1,
 			random = 9999999999999999999,

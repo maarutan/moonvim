@@ -1,6 +1,7 @@
 local border = require("core.options").border
 return {
 	focus = "input",
+	ui_select = false, -- replace `vim.ui.select` with the snacks picker
 	layout = {
 		--- Use the default layout or vertical if the window is too narrow
 		preset = "telescope", -- telescope default,sidebar , vertical -- select

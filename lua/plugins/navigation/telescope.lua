@@ -122,10 +122,20 @@ telescope.setup({
 
 		-- initial_mode = "normal",
 
-		layout_config = {
-			preview_width = 0.6, -- window size (50% from width)
-		},
 		layout_strategy = "horizontal",
+		layout_config = {
+			horizontal = {
+				preview_width = 0.6, -- ✅ правильно
+				width = function(_, cols, _)
+					return math.min(cols, 120)
+				end,
+				height = function(_, _, rows)
+					return math.min(rows, 40)
+				end,
+				prompt_position = "bottom",
+				preview_cutoff = 1,
+			},
+		},
 		mappings = {
 			i = {
 				["<C-u>"] = custom_move_selection_previous,
