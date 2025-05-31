@@ -24,6 +24,7 @@ local bind = vim.keymap.set
 bind("n", "<C-S-=>", function()   -- Increase font size
 	vim.g.neovide_scale_factor = vim.g.neovide_scale_factor + 0.1
 end
+
 bind("n", "<C-S-->", function()  -- Decrease font size
 	vim.g.neovide_scale_factor = vim.g.neovide_scale_factor - 0.1
 end

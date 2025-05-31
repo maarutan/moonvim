@@ -8,6 +8,7 @@ require("plugins.colorscheme.theme.everforest")
 require("plugins.colorscheme.theme.dracula")
 require("plugins.colorscheme.theme.rose_pine")
 require("plugins.colorscheme.theme.solarized_osaka")
+require("plugins.colorscheme.theme.cyberdream")
 
 ----------------------------------------------------------------
 

@@ -21,6 +21,7 @@ require("plugins.editing.multi_cursor")
 require("plugins.editing.ufo")
 require("plugins.editing.autopairs")
 require("plugins.editing.cmp")
+require("plugins.editing.suda")
 
 ---- [ ai ]
 -- require("plugins.ai.copilot.copilot")

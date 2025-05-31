@@ -94,5 +94,6 @@ return {
 	{ "fei6409/log-highlight.nvim" }, -- highlighting log files
 	-- { "karb94/neoscroll.nvim" }, -- smooth scroll for neovim
 	{ "echasnovski/mini.animate" }, -- animation for nvim
-  { "stevearc/dressing.nvim" }, -- enter ui for nvim
+	{ "stevearc/dressing.nvim" }, -- enter ui for nvim
+	{ "lambdalisue/vim-suda" }, -- sudo
 }
