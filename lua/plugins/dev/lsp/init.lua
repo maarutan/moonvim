@@ -12,6 +12,7 @@ local filenames = {
 	"hyprls",
 	"emmet-ls",
 	"nix",
+	"rust",
 }
 
 for _, i in ipairs(filenames) do

@@ -37,6 +37,7 @@ require("mason-tool-installer").setup({
 		"taplo", -- TOML
 		"hyprls", -- Hyprland
 		"nil", -- Nix
+		"rust-analyzer", -- Rust
 
 		--- Linters ---
 		"beautysh", -- Shell scripts
@@ -53,7 +54,7 @@ require("mason-tool-installer").setup({
 		"yamllint", -- YAML
 
 		--- Formatters ---
-		"nixpkgs-fmt", -- Nix
+		"alejandra", -- Nix
 		"black", -- Python
 		"prettier", -- General-purpose (JS, CSS, HTML)
 		"prettierd", -- Lightweight Prettier

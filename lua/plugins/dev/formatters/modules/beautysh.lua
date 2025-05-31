@@ -7,6 +7,7 @@ M.format = function()
 		on_exit = function()
 			vim.schedule(function()
 				vim.cmd("edit!")
+				vim.cmd("normal! zz")
 			end)
 		end,
 	})

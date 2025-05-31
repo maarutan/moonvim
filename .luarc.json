@@ -8,6 +8,7 @@
     "redundant-parameter",
         "cast-local-type",
         "need-check-nil",
-        "undefined-global"
+        "undefined-global",
+        "different-requires"
   ]
 }

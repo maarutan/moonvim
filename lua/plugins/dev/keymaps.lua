@@ -45,6 +45,7 @@ local servers = {
 	"clangd",
 	"hyprls",
 	"nil_ls",
+	"rust_analyzer",
 }
 for _, server in ipairs(servers) do
 	lspconfig[server].setup({

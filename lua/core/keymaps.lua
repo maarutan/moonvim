@@ -48,6 +48,7 @@ map("n", "<S-C-n>", ":nohl<CR>", opts) -- clear search highlight
 -- Select all text
 -- map("n", "<C-a>", "<cmd>normal! ma ggVG`a<CR>", opts)
 map("n", "<C-a>", "<cmd>SelectAll<CR>", opts)
+map("i", "<C-a>", "<C-o>:SelectAll<CR>", opts)
 
 -- Scroll(Up / Down)
 vim.keymap.set("n", "<C-d>", "<cmd>ScrollDown<CR>")
