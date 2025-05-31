@@ -15,7 +15,7 @@ if is_kitty() then
 		os.execute("kitty @ set-spacing padding=default")
 	end
 
-	vim.api.nvim_create_autocmd({ "VimEnter", "BufEnter" }, {
+	vim.api.nvim_create_autocmd({ "VimEnter", "BufEnter", "WinEnter", "TabEnter" }, {
 		callback = apply_kitty_settings,
 	})
 
