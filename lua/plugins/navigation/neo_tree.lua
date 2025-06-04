@@ -38,12 +38,6 @@ local function smoothScroll(key, delay, stop_int)
 			counter = counter + 1
 			vim.cmd("normal! " .. key)
 
-			if is_cursor_bottom() then
-				vim.cmd("normal! gg")
-			elseif is_cursor_top() then
-				vim.cmd("normal! G")
-			end
-
 			if counter == stop_int then
 				counter = 0
 				timer:stop()
@@ -51,25 +45,6 @@ local function smoothScroll(key, delay, stop_int)
 			end
 		end)
 	)
-end
-
-local function up_or_down_handler(up)
-	local before = vim.api.nvim_win_get_cursor(0)[1]
-
-	if up then
-		vim.cmd("normal! k")
-	else
-		vim.cmd("normal! j")
-	end
-
-	local after = vim.api.nvim_win_get_cursor(0)[1]
-	local total = vim.api.nvim_buf_line_count(0)
-
-	if before == 1 and up then
-		vim.cmd("normal! G")
-	elseif before == total and not up then
-		vim.cmd("normal! gg")
-	end
 end
 
 require("neo-tree").setup({
@@ -110,9 +85,6 @@ require("neo-tree").setup({
 				["d"] = "trash",
 				["u"] = "restore",
 
-				["k"] = "up",
-				["j"] = "down",
-
 				["<C-h>"] = "toggle_hidden",
 
 				["f"] = "fuzzy_finder",
@@ -149,6 +121,7 @@ require("neo-tree").setup({
             ]])
 			end,
 		},
+
 		{
 			event = require("neo-tree.events").FILE_OPENED,
 			handler = function()
@@ -180,14 +153,6 @@ require("neo-tree").setup({
 
 		scrolldown = function(state)
 			smoothScroll("j", 30, 3)
-		end,
-
-		up = function(state)
-			up_or_down_handler(true)
-		end,
-
-		down = function(state)
-			up_or_down_handler(false)
 		end,
 
 		trash = function(state)

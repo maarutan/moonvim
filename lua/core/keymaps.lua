@@ -115,23 +115,26 @@ map("n", "<C-cr>", "<cmd>write<CR>", opts) -- save current buffer
 map("n", "=", "<C-a>", opts) -- plus point
 map("n", "-", "<C-x>", opts) -- minus point
 
-local function up_or_down_handler(up)
-	local before = vim.api.nvim_win_get_cursor(0)[1]
+local function up_or_down_handler(up, count)
+	count = count or vim.v.count -- используем vim.v.count если передан префикс
 
-	if up then
-		vim.cmd("normal! k")
-	else
-		vim.cmd("normal! j")
-	end
+	local key = (count > 0 and tostring(count) or "") .. (up and "k" or "j")
 
-	local after = vim.api.nvim_win_get_cursor(0)[1]
-	local total = vim.api.nvim_buf_line_count(0)
+	-- Преобразуем в termcodes для безопасной вставки
+	local termcode = vim.api.nvim_replace_termcodes(key, true, false, true)
+	vim.api.nvim_feedkeys(termcode, "n", false)
 
-	if before == 1 and up then
-		vim.cmd("normal! G")
-	elseif before == total and not up then
-		vim.cmd("normal! gg")
-	end
+	vim.defer_fn(function()
+		local cur = vim.api.nvim_win_get_cursor(0)[1]
+		local total = vim.api.nvim_buf_line_count(0)
+
+		-- Прыжок на G / gg, если на пределе
+		if up and cur == 1 then
+			vim.api.nvim_feedkeys("G", "n", false)
+		elseif not up and cur == total then
+			vim.api.nvim_feedkeys("gg", "n", false)
+		end
+	end, 0)
 end
 
 map("n", "k", function()
