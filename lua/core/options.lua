@@ -7,6 +7,7 @@
 -- General options --
 local border = "single" -- "rounded" | "single" | "double"  | "none"
 vim.loader.enable() -- fast loader.
+ --- vim.opt.loadplugins = false -- Disable loading of plugins
 vim.opt.syntax = "off" -- Disable syntax highlighting
 vim.opt.mouse = "" -- Mouse options.
 vim.opt.number = true -- Set numbers.

@@ -71,21 +71,43 @@ map("n", "<leader>oc", function()
 	vim.cmd("edit ~/.config/nvim/init.lua") -- open init.lua
 end, opts)
 
--- focus flouting buffer
+local function focus_next_floating_win()
+	local wins = vim.api.nvim_list_wins()
+	local floating_wins = {}
 
-map("n", "<Leader>bf", function()
-	for _, win in ipairs(vim.api.nvim_list_wins()) do
-		if vim.api.nvim_win_get_config(win).relative ~= "" then
-			vim.api.nvim_set_current_win(win)
+	for _, win in ipairs(wins) do
+		local config = vim.api.nvim_win_get_config(win)
+		if config.relative and config.relative ~= "" then
+			table.insert(floating_wins, win)
+		end
+	end
+
+	if #floating_wins == 0 then
+		print("No floating windows found")
+		return
+	end
+
+	local current = vim.api.nvim_get_current_win()
+	local start_idx = 0
+
+	for i, win in ipairs(floating_wins) do
+		if win == current then
+			start_idx = i
 			break
 		end
 	end
-end, opts) -- focus floating buffer
 
--- Macro recording toggle
-map("n", "M", "q", opts) -- start recording macro
+	local next_idx = (start_idx % #floating_wins) + 1
 
--- Cursor positioning
+	vim.api.nvim_set_current_win(floating_wins[next_idx])
+end
+
+map("n", "<Leader>bf", focus_next_floating_win, opts)
+
+map("n", "M", function()
+	vim.api.nvim_feedkeys("q", "n", false)
+end, opts) -- start recording macro
+
 map("n", "<Leader>ph", "H", opts) -- Move to the beginning of the line
 map("n", "<Leader>pm", "M", opts) -- Move to the middle of the line
 map("n", "<Leader>pl", "L", opts) -- Move to the end of the line
@@ -116,25 +138,25 @@ map("n", "=", "<C-a>", opts) -- plus point
 map("n", "-", "<C-x>", opts) -- minus point
 
 local function up_or_down_handler(up, count)
-	count = count or vim.v.count -- используем vim.v.count если передан префикс
+	count = count or vim.v.count
+	local cur = vim.api.nvim_win_get_cursor(0)[1]
+	local total = vim.api.nvim_buf_line_count(0)
+
+	if up then
+		if cur == 1 then
+			vim.api.nvim_feedkeys("G", "n", false)
+			return
+		end
+	else
+		if cur == total then
+			vim.api.nvim_feedkeys("gg", "n", false)
+			return
+		end
+	end
 
 	local key = (count > 0 and tostring(count) or "") .. (up and "k" or "j")
-
-	-- Преобразуем в termcodes для безопасной вставки
 	local termcode = vim.api.nvim_replace_termcodes(key, true, false, true)
 	vim.api.nvim_feedkeys(termcode, "n", false)
-
-	vim.defer_fn(function()
-		local cur = vim.api.nvim_win_get_cursor(0)[1]
-		local total = vim.api.nvim_buf_line_count(0)
-
-		-- Прыжок на G / gg, если на пределе
-		if up and cur == 1 then
-			vim.api.nvim_feedkeys("G", "n", false)
-		elseif not up and cur == total then
-			vim.api.nvim_feedkeys("gg", "n", false)
-		end
-	end, 0)
 end
 
 map("n", "k", function()

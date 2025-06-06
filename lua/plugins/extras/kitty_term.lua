@@ -5,13 +5,13 @@ end
 
 if is_kitty() then
 	local function apply_kitty_settings()
-		os.execute("kitty @ set-font-size 13.5")
+		-- os.execute("kitty @ set-font-size 13.5")
 		os.execute("kitty @ set-spacing padding=0")
 		-- os.execute("kitty @ set-background-opacity 1")
 	end
 
 	local function reset_kitty_settings()
-		os.execute("kitty @ set-font-size 0")
+		-- os.execute("kitty @ set-font-size 0")
 		os.execute("kitty @ set-spacing padding=default")
 	end
 

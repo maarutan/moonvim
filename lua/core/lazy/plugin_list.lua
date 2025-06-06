@@ -96,42 +96,6 @@ return {
 	{ "echasnovski/mini.animate" }, -- animation for nvim
 	{ "stevearc/dressing.nvim" }, -- enter ui for nvim
 	{ "lambdalisue/vim-suda" }, -- sudo
-	{
-		"NeViRAIDE/nekifoch.nvim",
-		build = "chmod +x ./install.sh && ./install.sh",
-		cmd = "Nekifoch", -- to add lazy loading
-		opts = {
-			kitty_conf_path = vim.fn.expand("~/.config/kitty/kitty.conf"), -- your kitty config path
-		},
-	}, -- neki for nvim only for (KITTY terminal)
-
-	-- core.lazy.plugin_list.lua
-	{
-		"mfussenegger/nvim-dap",
-		dependencies = {
-			"rcarriga/nvim-dap-ui", -- UI для отладки
-			"mfussenegger/nvim-dap-python", -- адаптер Python
-		},
-		config = function()
-			require("dapui").setup()
-			local dap = require("dap")
-			local dap_python = require("dap-python")
-
-			dap_python.setup("~/.venv/bin/python") -- укажи путь к своему Python
-			dap.listeners.after.event_initialized["dapui_config"] = function()
-				require("dapui").open()
-			end
-			dap.listeners.before.event_terminated["dapui_config"] = function()
-				require("dapui").close()
-			end
-			dap.listeners.before.event_exited["dapui_config"] = function()
-				require("dapui").close()
-			end
-		end,
-	},
-
-	{
-		"nvim-neotest/nvim-nio",
-		lazy = true,
-	},
+	{ require("plugins.ui.nekifoch") }, -- neki for nvim only for (KITTY terminal)
+	{ "maarutan/macro-notify.nvim", opts = {} },
 }

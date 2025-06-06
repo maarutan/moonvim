@@ -6,7 +6,7 @@ local beautysh = require("plugins.dev.formatters.modules.beautysh")
 local black = require("plugins.dev.formatters.modules.black")
 local djlint = require("plugins.dev.formatters.modules.djlint")
 local clang_format = require("plugins.dev.formatters.modules.clang_format")
-local nixpkgs_fmt = require("plugins.dev.formatters.modules.nixpkgs_fmt")
+local alejandra = require("plugins.dev.formatters.modules.alejandra")
 local rustfmt = require("plugins.dev.formatters.modules.rustfmt")
 
 local augroup = vim.api.nvim_create_augroup
@@ -75,7 +75,7 @@ require("formatter").setup({
 		----------
 		-- nix --
 		----------
-		nix = { nixpkgs_fmt.format },
+		nix = { alejandra.format },
 
 		----------
 		-- rust --
