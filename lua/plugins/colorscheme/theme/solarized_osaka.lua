@@ -1,0 +1,1 @@
+require("solarized-osaka").setup({})

@@ -1,0 +1,14 @@
+{
+  "diagnostics.globals": ["vim", "self", "opts"],
+  "diagnostics.disable": [
+    "unused-local",
+    "inject-field",
+    "undefined-field",
+    "param-type-mismatch",
+    "redundant-parameter",
+        "cast-local-type",
+        "need-check-nil",
+        "undefined-global",
+        "different-requires"
+  ]
+}
