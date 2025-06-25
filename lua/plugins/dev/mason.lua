@@ -42,7 +42,6 @@ require("mason-tool-installer").setup({
 		--- Linters ---
 		"beautysh", -- Shell scripts
 		"cpplint", -- C/C++
-		"djlint", -- Django templates
 		"eslint_d", -- JavaScript/TypeScript
 		"htmlhint", -- HTML
 		"markdownlint", -- Markdown

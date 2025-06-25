@@ -4,7 +4,6 @@ local ruff = require("plugins.dev.formatters.modules.ruff")
 local stylua = require("plugins.dev.formatters.modules.stylua")
 local beautysh = require("plugins.dev.formatters.modules.beautysh")
 local black = require("plugins.dev.formatters.modules.black")
-local djlint = require("plugins.dev.formatters.modules.djlint")
 local clang_format = require("plugins.dev.formatters.modules.clang_format")
 local alejandra = require("plugins.dev.formatters.modules.alejandra")
 local rustfmt = require("plugins.dev.formatters.modules.rustfmt")
@@ -22,6 +21,7 @@ require("formatter").setup({
 		typescriptreact = { prettierd.format },
 		javascriptreact = { prettierd.format },
 		html = { prettierd.format },
+		htmldjango = { prettierd.format },
 		css = { prettierd.format },
 		json = { prettierd.format },
 		markdown = { prettierd.format },
@@ -29,14 +29,15 @@ require("formatter").setup({
 		---------------
 		-- prettier --
 		---------------
-		-- javascript = { prettierd.format },
-		-- typescript = { prettierd.format },
-		-- typescriptreact = { prettierd.format },
-		-- javascriptreact = { prettierd.format },
-		-- html = { prettierd.format },
-		-- css = { prettierd.format },
-		-- json = { prettierd.format },
-		-- markdown = { prettierd.format },
+		-- javascript = { prettier.format },
+		-- typescript = { prettier.format },
+		-- typescriptreact = { prettier.format },
+		-- javascriptreact = { prettier.format },
+		-- html = { prettier.format },
+		-- htmldjango = { prettier.format },
+		-- css = { prettier.format },
+		-- json = { prettier.format },
+		-- markdown = { prettier.format },
 
 		----------
 		-- ruff --
@@ -59,12 +60,6 @@ require("formatter").setup({
 		sh = { beautysh.format },
 		bash = { beautysh.format },
 		zsh = { beautysh.format },
-
-		------------
-		-- djinja --
-		------------
-		-- html = { djlint.format },
-		django = { djlint.format },
 
 		------------
 		-- c, c++ --

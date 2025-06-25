@@ -8,6 +8,7 @@ lspconfig.emmet_ls.setup({
 		"typescriptreact",
 		"vue",
 		"blade.php",
+		"htmldjango",
 	},
 
 	init_options = {

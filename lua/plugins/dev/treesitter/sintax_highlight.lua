@@ -12,6 +12,7 @@ require("nvim-treesitter.configs").setup({
 		"javascript",
 		"typescript",
 		"html",
+		"htmldjango",
 		"css",
 		"bash",
 		"json",
