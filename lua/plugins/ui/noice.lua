@@ -1,6 +1,8 @@
 local border = require("core.options").border
 require("noice").setup({
 	lsp = {
+		signature = { opts = { size = { max_height = 15, max_width = 90 }, border = border } },
+		hover = { opts = { size = { max_height = 20, max_width = 60 }, border = border } },
 		override = {
 			["vim.lsp.util.convert_input_to_markdown_lines"] = true,
 			["vim.lsp.util.stylize_markdown"] = true,

@@ -4,6 +4,7 @@ lspconfig.emmet_ls.setup({
 	filetypes = {
 		"html",
 		"css",
+		"markdown",
 		"javascriptreact",
 		"typescriptreact",
 		"vue",

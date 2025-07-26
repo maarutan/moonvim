@@ -8,12 +8,14 @@ require("code-runner").setup({
 		python = "python3 -u $dir/$fileName",
 		lua = "lua $dir/$fileName",
 		sh = "sh $dir/$fileName",
+		zsh = "zsh $dir/$fileName",
 		html = "xdg-open $dir/$fileName",
 	},
 	extensions = {
 		python = { "py" },
 		lua = { "lua" },
 		sh = { "sh" },
+		zsh = { "zsh" },
 		html = { "html" },
 	},
 	debug = false, -- Debug mode flag
